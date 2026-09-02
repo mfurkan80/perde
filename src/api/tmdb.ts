@@ -8,9 +8,11 @@ const headers = {
   accept: "application/json",
 };
 
-export const fetchPopularMovies = async (): Promise<TmdbMovieListResponse> => {
+export const fetchPopularMovies = async (
+  page: number,
+): Promise<TmdbMovieListResponse> => {
   const response = await fetch(
-    `${BASE_URL}/movie/popular?language=tr-TR&page=1`,
+    `${BASE_URL}/movie/popular?language=tr-TR&page=${page}`,
     { headers },
   );
   if (!response.ok) {
