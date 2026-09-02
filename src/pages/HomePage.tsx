@@ -30,7 +30,7 @@ const HomePage = () => {
   const totalPages = Math.min(data.totalPages, 500);
 
   return (
-    <div>
+    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 p-4">
       {isFetching && <p>Yükleniyor...</p>}
       {data.movies.map((movie) => (
         <MovieCard key={movie.id} movie={movie} />

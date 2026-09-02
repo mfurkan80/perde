@@ -7,12 +7,22 @@ interface MovieCardProps {
 
 const MovieCard = ({ movie }: MovieCardProps) => {
   return (
-    <div>
-      <Link to={`/movie/${movie.id}`}>
-        <img src={getPosterUrl(movie)} alt={movie.title} />
-        <h2>{movie.title}</h2>
-        <p>{getReleaseYear(movie)}</p>
-        <p>{movie.voteAverage}</p>
+    <div className="rounded-lg overflow-hidden hover:scale-105 transition">
+      <Link className="block" to={`/movie/${movie.id}`}>
+        <img
+          className="w-full h-72 object-cover"
+          src={getPosterUrl(movie)}
+          alt={movie.title}
+        />
+        <div className="p-3">
+          <h2 className="text-sm font-semibold line-clamp-2 h-10">
+            {movie.title}
+          </h2>
+          <div className="flex justify-between text-xs text-gray-500">
+            <p>{getReleaseYear(movie)}</p>
+            <p>{movie.voteAverage.toFixed(1)}</p>
+          </div>
+        </div>
       </Link>
     </div>
   );
