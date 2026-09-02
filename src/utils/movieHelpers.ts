@@ -1,8 +1,8 @@
-import type { Movie } from "../types/movie";
+import type { MovieDetail, MovieSummary } from "../types/movie";
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
-export const getPosterUrl = (movie: Movie): string => {
+export const getPosterUrl = (movie: MovieSummary): string => {
   if (!movie.posterPath) {
     return "/placeholder.jpg";
   }
@@ -10,13 +10,13 @@ export const getPosterUrl = (movie: Movie): string => {
   return `${IMAGE_BASE_URL}${movie.posterPath}`;
 };
 
-export const getReleaseYear = (movie: Movie): string =>
+export const getReleaseYear = (movie: MovieSummary): string =>
   movie.releaseDate.split("-")[0];
 
-export const getGenreNames = (movie: Movie): string => {
+export const getGenreNames = (movie: MovieDetail): string => {
   return movie.genres.map((genre) => genre.name).join(", ");
 };
 
-export const logMovie = (movie: Movie): void => {
+export const logMovie = (movie: MovieSummary): void => {
   console.log(`${movie.title} (${getReleaseYear(movie)})`);
 };

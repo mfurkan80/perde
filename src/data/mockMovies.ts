@@ -1,6 +1,6 @@
-import type { Movie } from "../types/movie";
+import type { MovieSummary } from "../types/movie";
 
-export const mockMovies: Movie[] = [
+export const mockMovies: MovieSummary[] = [
   {
     id: 1,
     title: "From",
@@ -9,7 +9,6 @@ export const mockMovies: Movie[] = [
     releaseDate: "2022-02-20",
     voteAverage: 7.8,
     adult: false,
-    genres: [{ id: 2, name: "Horror" }],
   },
   {
     id: 2,
@@ -19,8 +18,7 @@ export const mockMovies: Movie[] = [
     releaseDate: "2012-02-20",
     voteAverage: 9.2,
     adult: false,
-    posterPath: "/bca213.jpg",
-    genres: [{ id: 3, name: "Middle Ages" }],
+    posterPath: "/favicon.svg",
   },
   {
     id: 3,
@@ -31,6 +29,5 @@ export const mockMovies: Movie[] = [
     voteAverage: 9.6,
     adult: true,
     posterPath: "/lpg123.jpg",
-    genres: [{ id: 1, name: "Drugs" }],
   },
 ];

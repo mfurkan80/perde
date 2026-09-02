@@ -1,4 +1,4 @@
-export interface Movie {
+export interface MovieSummary {
   id: number;
   title: string;
   overview: string;
@@ -6,7 +6,12 @@ export interface Movie {
   voteAverage: number;
   posterPath?: string;
   adult: boolean;
+}
+
+export interface MovieDetail extends MovieSummary {
   genres: Genre[];
+  runtime?: number;
+  tagline?: string;
 }
 
 export interface Genre {
