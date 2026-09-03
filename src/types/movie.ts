@@ -6,6 +6,7 @@ export interface MovieSummary {
   voteAverage: number;
   posterPath?: string;
   adult: boolean;
+  backdropPath?: string;
 }
 
 export interface MovieDetail extends MovieSummary {

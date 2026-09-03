@@ -1,6 +1,7 @@
 import type { MovieDetail, MovieSummary } from "../types/movie";
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+const BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/w1280";
 
 export const getPosterUrl = (movie: MovieSummary): string => {
   if (!movie.posterPath) {
@@ -19,4 +20,12 @@ export const getGenreNames = (movie: MovieDetail): string => {
 
 export const logMovie = (movie: MovieSummary): void => {
   console.log(`${movie.title} (${getReleaseYear(movie)})`);
+};
+
+export const getBackdropUrl = (movie: MovieSummary): string => {
+  if (!movie.backdropPath) {
+    return "";
+  }
+
+  return `${BACKDROP_BASE_URL}${movie.backdropPath}`;
 };

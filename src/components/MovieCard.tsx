@@ -15,7 +15,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
           alt={movie.title}
         />
         <div className="p-3">
-          <h2 className="text-sm font-semibold line-clamp-2 h-10">
+          <h2 className="text-sm font-semibold line-clamp-2 h-12">
             {movie.title}
           </h2>
           <div className="flex justify-between text-xs text-gray-500">

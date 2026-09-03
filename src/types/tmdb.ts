@@ -6,6 +6,7 @@ export interface TmdbMovie {
   vote_average: number;
   poster_path: string | null;
   adult: boolean;
+  backdrop_path: string | null;
 }
 
 export interface TmdbMovieDetail extends TmdbMovie {
@@ -20,3 +21,9 @@ export interface TmdbMovieListResponse {
   total_pages: number;
   total_results: number;
 }
+
+export type MovieCategory =
+  | "popular"
+  | "now_playing"
+  | "top_rated"
+  | "upcoming";

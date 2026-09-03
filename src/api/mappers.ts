@@ -9,6 +9,7 @@ export const mapMovieSummary = (raw: TmdbMovie): MovieSummary => ({
   overview: raw.overview,
   adult: raw.adult,
   posterPath: raw.poster_path ?? undefined,
+  backdropPath: raw.backdrop_path ?? undefined,
 });
 
 export const mapMovieSummaryList = (rawList: TmdbMovie[]): MovieSummary[] =>

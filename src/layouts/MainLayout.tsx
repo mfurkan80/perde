@@ -3,7 +3,7 @@ import SearchBar from "../components/SearchBar";
 
 const MainLayout = () => {
   return (
-    <div>
+    <div className="bg-gray-950 text-white min-h-screen">
       <header className="bg-gray-900 text-white px-4 py-4 flex items-center justify-between">
         <Link to="/">
           <h1 className="text-xl font-bold">Perde</h1>

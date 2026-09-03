@@ -1,4 +1,8 @@
-import type { TmdbMovieDetail, TmdbMovieListResponse } from "../types/tmdb";
+import type {
+  MovieCategory,
+  TmdbMovieDetail,
+  TmdbMovieListResponse,
+} from "../types/tmdb";
 
 const BASE_URL = "https://api.themoviedb.org/3";
 const TOKEN = import.meta.env.VITE_TMDB_TOKEN;
@@ -6,20 +10,6 @@ const TOKEN = import.meta.env.VITE_TMDB_TOKEN;
 const headers = {
   Authorization: `Bearer ${TOKEN}`,
   accept: "application/json",
-};
-
-export const fetchPopularMovies = async (
-  page: number,
-): Promise<TmdbMovieListResponse> => {
-  const response = await fetch(
-    `${BASE_URL}/movie/popular?language=tr-TR&page=${page}`,
-    { headers },
-  );
-  if (!response.ok) {
-    throw new Error("Popüler filmler bulunamadı.");
-  }
-  const data = await response.json();
-  return data;
 };
 
 export const fetchMovieDetail = async (
@@ -45,6 +35,21 @@ export const searchMovies = async (
   );
   if (!response.ok) {
     throw new Error("Arama başarısız oldu.");
+  }
+  const data = await response.json();
+  return data;
+};
+
+export const fetchMoviesByCategory = async (
+  category: MovieCategory,
+  page: number,
+): Promise<TmdbMovieListResponse> => {
+  const response = await fetch(
+    `${BASE_URL}/movie/${category}?language=tr-TR&page=${page}`,
+    { headers },
+  );
+  if (!response.ok) {
+    throw new Error("Kategori çekimi başarısız oldu.");
   }
   const data = await response.json();
   return data;
