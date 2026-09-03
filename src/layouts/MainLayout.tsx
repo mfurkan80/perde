@@ -1,4 +1,5 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
+import SearchBar from "../components/SearchBar";
 
 const MainLayout = () => {
   return (
@@ -7,6 +8,7 @@ const MainLayout = () => {
         <Link to="/">
           <h1 className="text-xl font-bold">Perde</h1>
         </Link>
+        <SearchBar />
         <nav className="flex gap-6">
           <NavLink
             to="/"
@@ -15,14 +17,6 @@ const MainLayout = () => {
             }
           >
             Ana Sayfa
-          </NavLink>
-          <NavLink
-            to="/search"
-            className={({ isActive }) =>
-              isActive ? "text-white" : "text-gray-400 hover:text-white"
-            }
-          >
-            Arama
           </NavLink>
           <NavLink
             to="/favorites"
