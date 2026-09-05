@@ -49,14 +49,14 @@ const MovieDetailPage = () => {
         )}
         <div className="absolute inset-0 bg-linear-to-r from-gray-950 via-gray-950/60 to-transparent" />
         <div className="absolute inset-0 bg-linear-to-t from-gray-950 to-transparent" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 py-12 flex gap-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 py-12 flex gap-8 flex-col md:flex-row">
           <img
             src={getPosterUrl(data)}
             alt={data.title}
-            className="w-64 rounded-lg shrink-0"
+            className="w-48 md:w-64 rounded-lg shrink-0"
           />
           <div>
-            <h1 className="text-4xl font-bold">{data.title}</h1>
+            <h1 className="text-2xl md:text-4xl font-bold">{data.title}</h1>
             {data.tagline && (
               <p className="text-gray-400 italic mt-1">{data.tagline}</p>
             )}

@@ -10,7 +10,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
     <div className="rounded-lg overflow-hidden hover:scale-105 transition">
       <Link className="block" to={`/movie/${movie.id}`}>
         <img
-          className="w-full h-72 object-cover"
+          className="w-full h-48 md:h-72 object-cover"
           src={getPosterUrl(movie)}
           alt={movie.title}
         />

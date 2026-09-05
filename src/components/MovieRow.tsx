@@ -25,7 +25,7 @@ const MovieRow = ({ title, category }: MovieRowProps) => {
         <h2 className="text-xl font-semibold mb-3">{title}</h2>
         <div className="flex gap-4 overflow-x-auto pb-2">
           {data.map((movie) => (
-            <div key={movie.id} className="w-40 shrink-0">
+            <div key={movie.id} className="w-32 md:w-40 shrink-0">
               <MovieCard movie={movie} />
             </div>
           ))}

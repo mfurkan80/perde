@@ -39,7 +39,10 @@ const SearchBar = () => {
     setIsOpen(false);
   };
   return (
-    <div ref={containerRef} className="relative flex-1 max-w-md mx-8">
+    <div
+      ref={containerRef}
+      className="relative w-full md:flex-1 md:max-w-md md:mx-8"
+    >
       <form onSubmit={handleSubmit}>
         <input
           type="text"

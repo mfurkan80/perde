@@ -24,7 +24,7 @@ const Hero = ({ category }: HeroProps) => {
     return null;
   }
   return (
-    <section className="relative h-125 mb-8 w-screen left-1/2 -translate-x-1/2 -mt-6">
+    <section className="relative h-96 md:h-125 mb-8 w-screen left-1/2 -translate-x-1/2 -mt-6">
       <img
         src={getBackdropUrl(movie)}
         alt={movie.title}
@@ -33,7 +33,7 @@ const Hero = ({ category }: HeroProps) => {
       <div className="absolute inset-0 bg-linear-to-r from-gray-950 via-gray-950/40 to-transparent" />
       <div className="absolute inset-0 bg-linear-to-t from-gray-950 to-transparent" />
       <div className="relative z-10 max-w-7xl mx-auto px-4 h-full flex flex-col justify-center">
-        <h1 className="text-5xl font-bold">{movie.title}</h1>
+        <h1 className="text-3xl md:text-5xl font-bold">{movie.title}</h1>
         <div className="flex gap-4 text-sm text-gray-300 mt-2">
           <p>{getReleaseYear(movie)}</p>
           <p>{movie.voteAverage.toFixed(1)}</p>
