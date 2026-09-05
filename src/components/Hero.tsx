@@ -24,7 +24,7 @@ const Hero = ({ category }: HeroProps) => {
     return null;
   }
   return (
-    <section className="relative h-125 mb-8 w-screen left-1/2 -translate-x-1/2">
+    <section className="relative h-125 mb-8 w-screen left-1/2 -translate-x-1/2 -mt-6">
       <img
         src={getBackdropUrl(movie)}
         alt={movie.title}

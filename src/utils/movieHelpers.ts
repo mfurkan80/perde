@@ -1,7 +1,13 @@
-import type { MovieDetail, MovieSummary } from "../types/movie";
+import type {
+  CastMember,
+  MovieDetail,
+  MovieSummary,
+  Video,
+} from "../types/movie";
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 const BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/w1280";
+const PROFILE_BASE_URL = "https://image.tmdb.org/t/p/w185";
 
 export const getPosterUrl = (movie: MovieSummary): string => {
   if (!movie.posterPath) {
@@ -28,4 +34,28 @@ export const getBackdropUrl = (movie: MovieSummary): string => {
   }
 
   return `${BACKDROP_BASE_URL}${movie.backdropPath}`;
+};
+
+export const getBestTrailer = (videos: Video[]): Video | undefined => {
+  const fragman = videos.find(
+    (v) => v.language === "tr" && v.name.includes("Dublaj"),
+  );
+  if (fragman) {
+    return fragman;
+  }
+
+  const anyFragman = videos.find((v) => v.language === "tr");
+
+  if (anyFragman) {
+    return anyFragman;
+  }
+
+  return videos[0];
+};
+
+export const getProfileUrl = (profile: CastMember): string => {
+  if (!profile.profilePath) {
+    return "/placeholder.jpg";
+  }
+  return `${PROFILE_BASE_URL}${profile.profilePath}`;
 };

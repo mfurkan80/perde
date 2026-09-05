@@ -13,6 +13,9 @@ export interface TmdbMovieDetail extends TmdbMovie {
   genres: { id: number; name: string }[];
   runtime: number | null;
   tagline: string;
+  credits: { cast: TmdbCastMember[] };
+  videos: { results: TmdbVideo[] };
+  similar: { results: TmdbMovie[] };
 }
 
 export interface TmdbMovieListResponse {
@@ -27,3 +30,20 @@ export type MovieCategory =
   | "now_playing"
   | "top_rated"
   | "upcoming";
+
+export interface TmdbCastMember {
+  id: number;
+  name: string;
+  character: string;
+  profile_path: string | null;
+  order: number;
+}
+
+export interface TmdbVideo {
+  key: string;
+  name: string;
+  site: string;
+  type: string;
+  official: boolean;
+  iso_639_1: string;
+}

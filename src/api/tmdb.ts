@@ -15,9 +15,12 @@ const headers = {
 export const fetchMovieDetail = async (
   id: string,
 ): Promise<TmdbMovieDetail> => {
-  const response = await fetch(`${BASE_URL}/movie/${id}?language=tr-TR`, {
-    headers,
-  });
+  const response = await fetch(
+    `${BASE_URL}/movie/${id}?language=tr-TR&append_to_response=credits,videos,similar&include_video_language=tr,en`,
+    {
+      headers,
+    },
+  );
   if (!response.ok) {
     throw new Error("Film bilgisi yüklenemedi.");
   }
