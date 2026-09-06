@@ -3,7 +3,6 @@ import { mapMovieSummaryList } from "../api/mappers";
 import { fetchMoviesByCategory } from "../api/tmdb";
 import type { MovieCategory } from "../types/tmdb";
 import MovieCard from "./MovieCard";
-import Spinner from "./Spinner";
 import MovieCardSkeleton from "./MovieCardSkeleton";
 
 interface MovieRowProps {
