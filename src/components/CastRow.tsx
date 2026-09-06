@@ -19,6 +19,7 @@ const CastRow = ({ cast }: CastRowProps) => {
               className="w-full h-40 object-cover rounded"
               src={getProfileUrl(person)}
               alt={person.name}
+              loading="lazy"
             />
             <p className="text-sm font-medium mt-2">{person.name}</p>
             <p className="text-xs text-gray-400">{person.character}</p>
