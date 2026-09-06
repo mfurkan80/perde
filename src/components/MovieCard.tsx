@@ -13,9 +13,10 @@ const MovieCard = ({ movie }: MovieCardProps) => {
           className="w-full h-48 md:h-72 object-cover"
           src={getPosterUrl(movie)}
           alt={movie.title}
+          loading="lazy"
         />
         <div className="p-3">
-          <h2 className="text-sm font-semibold line-clamp-2 h-12">
+          <h2 className="text-sm font-semibold line-clamp-2 min-h-10 mb-1">
             {movie.title}
           </h2>
           <div className="flex justify-between text-xs text-gray-500">

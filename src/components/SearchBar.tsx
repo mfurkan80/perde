@@ -66,6 +66,7 @@ const SearchBar = () => {
                 src={getPosterUrl(movie)}
                 alt={movie.title}
                 className="w-10 h-14 object-cover rounded"
+                loading="lazy"
               />
               <div>
                 <h2 className="text-sm text-white">{movie.title}</h2>

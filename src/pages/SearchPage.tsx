@@ -3,6 +3,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { searchMovies } from "../api/tmdb";
 import { mapMovieSummaryList } from "../api/mappers";
 import MovieCard from "../components/MovieCard";
+import Spinner from "../components/Spinner";
 
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,11 +30,11 @@ const SearchPage = () => {
           "{query}" için sonuçlar
         </h1>
       )}
+      {isLoading && <Spinner />}
 
       {!query && (
         <p className="text-gray-400">Aramak için yukarıdaki kutuyu kullanın.</p>
       )}
-      {isLoading && <p className="text-gray-400">Aranıyor...</p>}
       {isFetching && !isLoading && (
         <p className="text-gray-400 mb-4">Yükleniyor...</p>
       )}

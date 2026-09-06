@@ -10,6 +10,7 @@ import {
   getReleaseYear,
 } from "../utils/movieHelpers";
 import CastRow from "../components/CastRow";
+import Spinner from "../components/Spinner";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
@@ -28,7 +29,7 @@ const MovieDetailPage = () => {
     return <p>Film bulunamadı :/</p>;
   }
   if (isLoading) {
-    return <p>Yükleniyor...</p>;
+    return <Spinner />;
   }
   if (error) {
     return <p>{error.message}</p>;
