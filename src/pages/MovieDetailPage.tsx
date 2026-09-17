@@ -11,6 +11,7 @@ import {
 } from "../utils/movieHelpers";
 import CastRow from "../components/CastRow";
 import Spinner from "../components/Spinner";
+import FavoriteButton from "../components/FavoriteButton";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
@@ -69,16 +70,19 @@ const MovieDetailPage = () => {
             <p className="text-sm text-gray-400 mt-2">{getGenreNames(data)}</p>
             <h2 className="mt-6 text-lg font-semibold">Özet</h2>
             <p className="mt-2 text-gray-200 max-w-2xl">{data.overview}</p>
-            {trailer && (
-              <a
-                href={`https://www.youtube.com/watch?v=${trailer.key}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-white text-gray-900 px-6 py-2 rounded font-semibold mt-6"
-              >
-                Fragmanı İzle
-              </a>
-            )}
+            <div className="flex gap-3 mt-6">
+              {trailer && (
+                <a
+                  href={`https://www.youtube.com/watch?v=${trailer.key}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-white text-gray-900 px-6 py-2 rounded font-semibold"
+                >
+                  Fragmanı İzle
+                </a>
+              )}
+              <FavoriteButton movieId={data.id} />
+            </div>
           </div>
         </div>
       </section>

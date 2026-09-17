@@ -4,22 +4,13 @@ import type {
   TmdbMovieListResponse,
 } from "../types/tmdb";
 
-const BASE_URL = "https://api.themoviedb.org/3";
-const TOKEN = import.meta.env.VITE_TMDB_TOKEN;
-
-const headers = {
-  Authorization: `Bearer ${TOKEN}`,
-  accept: "application/json",
-};
+const BASE_URL = `${import.meta.env.VITE_API_URL}/tmdb`;
 
 export const fetchMovieDetail = async (
   id: string,
 ): Promise<TmdbMovieDetail> => {
   const response = await fetch(
     `${BASE_URL}/movie/${id}?language=tr-TR&append_to_response=credits,videos,similar&include_video_language=tr,en`,
-    {
-      headers,
-    },
   );
   if (!response.ok) {
     throw new Error("Film bilgisi yüklenemedi.");
@@ -34,7 +25,6 @@ export const searchMovies = async (
 ): Promise<TmdbMovieListResponse> => {
   const response = await fetch(
     `${BASE_URL}/search/movie?query=${encodeURIComponent(query)}&language=tr-TR&page=${page}`,
-    { headers },
   );
   if (!response.ok) {
     throw new Error("Arama başarısız oldu.");
@@ -49,7 +39,6 @@ export const fetchMoviesByCategory = async (
 ): Promise<TmdbMovieListResponse> => {
   const response = await fetch(
     `${BASE_URL}/movie/${category}?language=tr-TR&page=${page}`,
-    { headers },
   );
   if (!response.ok) {
     throw new Error("Kategori çekimi başarısız oldu.");

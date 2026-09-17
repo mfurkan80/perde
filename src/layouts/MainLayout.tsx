@@ -6,8 +6,8 @@ const MainLayout = () => {
   return (
     <div className="bg-gray-950 text-white min-h-screen flex flex-col">
       <header className="bg-gray-900 text-white px-4 py-4">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center gap-4 md:justify-between">
-          <div className="flex items-center justify-between">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center gap-4">
+          <div className="flex items-center justify-between md:w-64">
             <Link to="/">
               <h1 className="text-xl font-bold">Perde</h1>
             </Link>
@@ -16,9 +16,11 @@ const MainLayout = () => {
             </nav>
           </div>
 
-          <SearchBar />
+          <div className="flex-1 flex justify-center">
+            <SearchBar />
+          </div>
 
-          <nav className="hidden md:flex gap-6">
+          <nav className="hidden md:flex gap-6 justify-end md:w-64">
             <NavLinks />
           </nav>
         </div>
