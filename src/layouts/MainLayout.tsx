@@ -5,7 +5,7 @@ import SearchBar from "../components/SearchBar";
 const MainLayout = () => {
   return (
     <div className="bg-gray-950 text-white min-h-screen flex flex-col">
-      <header className="bg-gray-900 text-white px-4 py-4">
+      <header className="sticky top-0 z-50 bg-gray-900 text-white px-4 py-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center gap-4">
           <div className="flex items-center justify-between md:w-64">
             <Link to="/">
