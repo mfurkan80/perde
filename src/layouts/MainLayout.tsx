@@ -28,8 +28,16 @@ const MainLayout = () => {
       <main className="max-w-7xl mx-auto px-4 py-6 w-full flex-1">
         <Outlet />
       </main>
-      <footer className="bg-gray-900 text-gray-400 text-sm px-4 py-6 text-center">
-        Film bilgisi almak için doğru adres
+      <footer className="border-t border-gray-800 bg-gray-900">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-2 px-4 py-4 text-sm">
+          <p className="text-gray-400">Film bilgisi almak için doğru adres</p>
+          <Link
+            to="/privacy"
+            className="text-gray-300 transition-colors duration-200 hover:text-white hover:underline"
+          >
+            Gizlilik Politikası
+          </Link>
+        </div>
       </footer>
     </div>
   );
