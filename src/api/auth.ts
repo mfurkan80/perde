@@ -47,3 +47,43 @@ export const fetchCurrentUser = async (token: string): Promise<User> => {
   }
   return data.user;
 };
+
+export const updateProfile = async (
+  token: string,
+  username: string,
+  email: string,
+): Promise<{ user: User }> => {
+  const response = await fetch(`${API_URL}/auth/profile`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ username, email }),
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message ?? "Profil güncellenemedi.");
+  }
+  return data;
+};
+
+export const updatePassword = async (
+  token: string,
+  currentPassword: string,
+  newPassword: string,
+): Promise<void> => {
+  const response = await fetch(`${API_URL}/auth/password`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ currentPassword, newPassword }),
+  });
+
+  if (!response.ok) {
+    const data = await response.json();
+    throw new Error(data.message ?? "Şifre güncellenemedi.");
+  }
+};
