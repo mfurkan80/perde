@@ -1,22 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
-import { mapMovieSummaryList } from "../api/mappers";
-import { fetchMoviesByCategory } from "../api/tmdb";
-import type { MovieCategory } from "../types/tmdb";
+import { mapMovieSummary, mapTvSummary } from "../api/mappers";
+import { fetchMoviesByCategory, fetchTvByCategory } from "../api/tmdb";
+import type { MovieCategory, TvCategory } from "../types/tmdb";
 import MovieCard from "./MovieCard";
 import MovieCardSkeleton from "./MovieCardSkeleton";
 
-interface MovieRowProps {
-  title: string;
-  category: MovieCategory;
-}
+type MovieRowProps =
+  | { title: string; mediaType: "movie"; category: MovieCategory }
+  | { title: string; mediaType: "tv"; category: TvCategory };
 
-const MovieRow = ({ title, category }: MovieRowProps) => {
+const MovieRow = ({ title, category, mediaType }: MovieRowProps) => {
   const { data, isLoading } = useQuery({
-    queryKey: ["movies", category],
-    queryFn: () => fetchMoviesByCategory(category, 1),
-    select: (raw) => mapMovieSummaryList(raw.results),
+    queryKey: ["movies", mediaType, category],
+    queryFn: async () => {
+      if (mediaType === "movie") {
+        const raw = await fetchMoviesByCategory(category, 1);
+        return raw.results.map(mapMovieSummary);
+      }
+
+      const raw = await fetchTvByCategory(category, 1);
+      return raw.results.map(mapTvSummary);
+    },
     staleTime: 5 * 60 * 1000,
   });
+
   return (
     <div>
       <section className="mb-8">

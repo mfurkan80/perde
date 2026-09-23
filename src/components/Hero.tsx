@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import type { MovieCategory } from "../types/tmdb";
-import { fetchMoviesByCategory } from "../api/tmdb";
-import { mapMovieSummaryList } from "../api/mappers";
-import { getBackdropUrl, getReleaseYear } from "../utils/movieHelpers";
 import { Link } from "react-router-dom";
+import { mapMovieSummary } from "../api/mappers";
+import { fetchMoviesByCategory } from "../api/tmdb";
+import type { MovieCategory } from "../types/tmdb";
+import { getBackdropUrl, getReleaseYear } from "../utils/movieHelpers";
 
 interface HeroProps {
   category: MovieCategory;
@@ -13,7 +13,7 @@ const Hero = ({ category }: HeroProps) => {
   const { data } = useQuery({
     queryKey: ["movies", category],
     queryFn: () => fetchMoviesByCategory(category, 1),
-    select: (raw) => mapMovieSummaryList(raw.results),
+    select: (raw) => raw.results.map(mapMovieSummary),
     staleTime: 5 * 60 * 1000,
   });
   if (!data) {

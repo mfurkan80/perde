@@ -1,9 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useAppSelector } from "../store/hooks";
+import { linkClass } from "../utils/linkClass";
 import UserMenu from "./UserMenu";
-
-const linkClass = ({ isActive }: { isActive: boolean }) =>
-  isActive ? "text-white" : "text-gray-400 hover:text-white";
 
 const NavLinks = () => {
   const user = useAppSelector((state) => state.auth.user);

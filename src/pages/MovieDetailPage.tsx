@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { fetchMovieDetail } from "../api/tmdb";
-import { mapMovieDetail } from "../api/mappers";
+import { fetchMovieDetail, fetchTvDetail } from "../api/tmdb";
+import { mapMovieDetail, mapTvDetail } from "../api/mappers";
 import {
   getBackdropUrl,
   getBestTrailer,
@@ -13,19 +13,30 @@ import CastRow from "../components/CastRow";
 import Spinner from "../components/Spinner";
 import FavoriteButton from "../components/FavoriteButton";
 
-const MovieDetailPage = () => {
+interface MovieDetailPageProps {
+  mediaType: "movie" | "tv";
+}
+
+const MovieDetailPage = ({ mediaType }: MovieDetailPageProps) => {
   const { id } = useParams();
   const { data, isLoading, error } = useQuery({
-    queryKey: ["movie", id],
-    queryFn: () => {
+    queryKey: ["media", mediaType, id],
+    queryFn: async () => {
       if (!id) {
-        throw new Error("Film bulunamadı :/");
+        throw new Error("İçerik bulunamadı :/");
       }
-      return fetchMovieDetail(id);
+
+      if (mediaType === "movie") {
+        const raw = await fetchMovieDetail(id);
+        return mapMovieDetail(raw);
+      }
+
+      const raw = await fetchTvDetail(id);
+      return mapTvDetail(raw);
     },
-    select: mapMovieDetail,
     enabled: !!id,
   });
+
   if (!id) {
     return <p>Film bulunamadı :/</p>;
   }
@@ -65,6 +76,8 @@ const MovieDetailPage = () => {
             <div className="flex gap-4 text-sm text-gray-300 mt-4">
               <p>{getReleaseYear(data)}</p>
               {data.runtime && <p>{data.runtime} dakika</p>}
+              {data.seasonCount ? <p>{data.seasonCount} sezon</p> : null}
+              {data.episodeCount ? <p>{data.episodeCount} bölüm</p> : null}
               <p>★{data.voteAverage.toFixed(1)}</p>
             </div>
             <p className="text-sm text-gray-400 mt-2">{getGenreNames(data)}</p>
@@ -81,7 +94,7 @@ const MovieDetailPage = () => {
                   Fragmanı İzle
                 </a>
               )}
-              <FavoriteButton movieId={data.id} />
+              <FavoriteButton mediaId={data.id} mediaType={mediaType} />
             </div>
           </div>
         </div>

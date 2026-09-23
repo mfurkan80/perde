@@ -5,10 +5,18 @@ const HomePage = () => {
   return (
     <div>
       <Hero category="popular" />
-      <MovieRow title="Popüler Filmler" category="popular" />
-      <MovieRow title="Vizyondakiler" category="now_playing" />
-      <MovieRow title="En Çok Oylananlar" category="top_rated" />
-      <MovieRow title="Yakında" category="upcoming" />
+      <MovieRow title="Popüler Filmler" mediaType="movie" category="popular" />
+      <MovieRow
+        title="Vizyondakiler"
+        mediaType="movie"
+        category="now_playing"
+      />
+      <MovieRow
+        title="En Çok Oylananlar"
+        mediaType="movie"
+        category="top_rated"
+      />
+      <MovieRow title="Yakında" mediaType="movie" category="upcoming" />
     </div>
   );
 };

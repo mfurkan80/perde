@@ -1,7 +1,7 @@
-import { useSearchParams } from "react-router-dom";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
+import { mapMovieSummary } from "../api/mappers";
 import { searchMovies } from "../api/tmdb";
-import { mapMovieSummaryList } from "../api/mappers";
 import MovieCard from "../components/MovieCard";
 import Spinner from "../components/Spinner";
 
@@ -14,7 +14,7 @@ const SearchPage = () => {
     queryKey: ["searchMovies", query, page],
     queryFn: () => searchMovies(query, page),
     select: (raw) => ({
-      movies: mapMovieSummaryList(raw.results),
+      movies: raw.results.map(mapMovieSummary),
       totalPages: raw.total_pages,
     }),
     enabled: !!query,

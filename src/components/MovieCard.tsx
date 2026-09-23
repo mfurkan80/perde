@@ -8,7 +8,7 @@ interface MovieCardProps {
 const MovieCard = ({ movie }: MovieCardProps) => {
   return (
     <div className="rounded-lg overflow-hidden hover:scale-105 transition">
-      <Link className="block" to={`/movie/${movie.id}`}>
+      <Link className="block" to={`/${movie.mediaType}/${movie.id}`}>
         <img
           className="w-full h-48 md:h-72 object-cover"
           src={getPosterUrl(movie)}

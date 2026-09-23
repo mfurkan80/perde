@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { addFavorite, fetchFavorites, removeFavorite } from "../api/favorites";
 
 interface FavoriteButtonProps {
-  movieId: number;
+  mediaId: number;
+  mediaType: "movie" | "tv";
 }
 
-const FavoriteButton = ({ movieId }: FavoriteButtonProps) => {
+const FavoriteButton = ({ mediaId, mediaType }: FavoriteButtonProps) => {
   const { user, token } = useAppSelector((state) => state.auth);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -18,13 +19,16 @@ const FavoriteButton = ({ movieId }: FavoriteButtonProps) => {
     enabled: !!token,
   });
 
-  const isFavorite = favorites?.includes(movieId) ?? false;
+  const isFavorite =
+    favorites?.some(
+      (fav) => fav.mediaId === mediaId && fav.mediaType === mediaType,
+    ) ?? false;
 
   const mutation = useMutation({
     mutationFn: () =>
       isFavorite
-        ? removeFavorite(token!, movieId)
-        : addFavorite(token!, movieId),
+        ? removeFavorite(token!, mediaId, mediaType)
+        : addFavorite(token!, mediaId, mediaType),
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["favorites"] });

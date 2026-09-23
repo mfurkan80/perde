@@ -6,6 +6,7 @@ const linkGroups = [
     links: [
       { label: "Ana Sayfa", to: "/" },
       { label: "Favorilerim", to: "/favorites" },
+      { label: "Diziler", to: "/tv" },
     ],
   },
   {

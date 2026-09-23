@@ -1,6 +1,13 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const fetchFavorites = async (token: string): Promise<number[]> => {
+export interface FavoriteItem {
+  mediaId: number;
+  mediaType: "movie" | "tv";
+}
+
+export const fetchFavorites = async (
+  token: string,
+): Promise<FavoriteItem[]> => {
   const response = await fetch(`${API_URL}/favorites`, {
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -11,12 +18,13 @@ export const fetchFavorites = async (token: string): Promise<number[]> => {
     throw new Error(data.message ?? "Favoriler alınamadı");
   }
 
-  return data.movieIds;
+  return data.favorites;
 };
 
 export const addFavorite = async (
   token: string,
-  movieId: number,
+  mediaId: number,
+  mediaType: "movie" | "tv",
 ): Promise<void> => {
   const response = await fetch(`${API_URL}/favorites`, {
     method: "POST",
@@ -24,7 +32,7 @@ export const addFavorite = async (
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ movieId }),
+    body: JSON.stringify({ mediaId, mediaType }),
   });
   if (!response.ok) {
     const data = await response.json();
@@ -34,9 +42,10 @@ export const addFavorite = async (
 
 export const removeFavorite = async (
   token: string,
-  movieId: number,
+  mediaId: number,
+  mediaType: "movie" | "tv",
 ): Promise<void> => {
-  const response = await fetch(`${API_URL}/favorites/${movieId}`, {
+  const response = await fetch(`${API_URL}/favorites/${mediaType}/${mediaId}`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
   });

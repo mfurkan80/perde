@@ -16,6 +16,7 @@ import SearchPage from "./pages/SearchPage";
 import { logout, setLoading, setUser } from "./store/authSlice";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
 import ContactPage from "./pages/ContactPage";
+import TvPage from "./pages/TvPage";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -48,7 +49,11 @@ const App = () => {
               </ProductedRoute>
             }
           />
-          <Route path="/movie/:id" element={<MovieDetailPage />} />
+          <Route
+            path="/movie/:id"
+            element={<MovieDetailPage mediaType="movie" />}
+          />
+          <Route path="/tv/:id" element={<MovieDetailPage mediaType="tv" />} />
 
           <Route
             path="/profile"
@@ -60,6 +65,7 @@ const App = () => {
           />
           <Route path="/privacy" element={<PrivacyPolicyPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/tv" element={<TvPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

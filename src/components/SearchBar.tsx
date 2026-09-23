@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState, type SyntheticEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { mapMovieSummaryList } from "../api/mappers";
+import { mapMovieSummary } from "../api/mappers";
 import { searchMovies } from "../api/tmdb";
 import { useDebounce } from "../hooks/useDebounce";
 import { getPosterUrl, getReleaseYear } from "../utils/movieHelpers";
@@ -15,7 +15,7 @@ const SearchBar = () => {
   const { data } = useQuery({
     queryKey: ["searchBar", debouncedValue],
     queryFn: () => searchMovies(debouncedValue, 1),
-    select: (raw) => mapMovieSummaryList(raw.results).slice(0, 6),
+    select: (raw) => raw.results.map(mapMovieSummary).slice(0, 6),
     enabled: !!debouncedValue,
   });
   useEffect(() => {

@@ -7,6 +7,7 @@ export interface MovieSummary {
   posterPath?: string;
   adult: boolean;
   backdropPath?: string;
+  mediaType: "movie" | "tv";
 }
 
 export interface MovieDetail extends MovieSummary {
@@ -16,6 +17,8 @@ export interface MovieDetail extends MovieSummary {
   cast: CastMember[];
   videos: Video[];
   similar: MovieSummary[];
+  seasonCount?: number;
+  episodeCount?: number;
 }
 
 export interface Genre {
