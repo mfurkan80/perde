@@ -6,7 +6,12 @@ import { searchMovies } from "../api/tmdb";
 import { useDebounce } from "../hooks/useDebounce";
 import { getPosterUrl, getReleaseYear } from "../utils/movieHelpers";
 
-const SearchBar = () => {
+interface SearchBarProps {
+  onClose?: () => void;
+  autoFocus?: boolean;
+}
+
+const SearchBar = ({ onClose, autoFocus = false }: SearchBarProps) => {
   const [inputValue, setInputValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
@@ -37,6 +42,7 @@ const SearchBar = () => {
     }
     navigate(`/search?q=${encodeURIComponent(inputValue)}`);
     setIsOpen(false);
+    onClose?.();
   };
   return (
     <div
@@ -49,6 +55,7 @@ const SearchBar = () => {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onFocus={() => setIsOpen(true)}
+          autoFocus={autoFocus}
           placeholder="Film Ara..."
           className="w-full px-4 py-2 rounded-full bg-gray-800 border border-gray-700 text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600"
         />
@@ -59,7 +66,10 @@ const SearchBar = () => {
             <Link
               key={movie.id}
               to={`/movie/${movie.id}`}
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                setIsOpen(false);
+                onClose?.();
+              }}
               className="flex gap-3 p-2 hover:bg-gray-700"
             >
               <img

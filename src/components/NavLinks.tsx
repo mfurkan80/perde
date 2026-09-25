@@ -3,7 +3,11 @@ import { useAppSelector } from "../store/hooks";
 import { linkClass } from "../utils/linkClass";
 import UserMenu from "./UserMenu";
 
-const NavLinks = () => {
+export interface NavLinksProps {
+  compact?: boolean;
+}
+
+const NavLinks = ({ compact = false }: NavLinksProps) => {
   const user = useAppSelector((state) => state.auth.user);
 
   if (!user) {
@@ -12,9 +16,11 @@ const NavLinks = () => {
         <NavLink to="/login" className={linkClass}>
           Giriş Yap
         </NavLink>
-        <NavLink to="/register" className={linkClass}>
-          Kayıt Ol
-        </NavLink>
+        {!compact && (
+          <NavLink to="/register" className={linkClass}>
+            Kayıt Ol
+          </NavLink>
+        )}
       </>
     );
   }
