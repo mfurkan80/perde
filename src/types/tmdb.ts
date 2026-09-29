@@ -18,12 +18,35 @@ export interface TmdbMovieDetail extends TmdbMovie {
   similar: { results: TmdbMovie[] };
 }
 
-export interface TmdbTvListResponse {
+// TMDB'nin bütün liste cevapları aynı zarfta gelir, sadece `results`'ın içi değişir.
+// T bir yer tutucu: TmdbListResponse<TmdbMovie>, TmdbListResponse<TmdbTvShow> ...
+export interface TmdbListResponse<T> {
   page: number;
-  results: TmdbTvShow[];
+  results: T[];
   total_pages: number;
   total_results: number;
 }
+
+export type TmdbMovieListResponse = TmdbListResponse<TmdbMovie>;
+export type TmdbTvListResponse = TmdbListResponse<TmdbTvShow>;
+
+export interface TmdbGenreListResponse {
+  genres: { id: number; name: string }[];
+}
+
+export interface TmdbPerson {
+  id: number;
+  name: string;
+  profile_path: string | null;
+}
+
+// /search/multi film, dizi ve kişi karışık döndürür; media_type hangisi olduğunu söyler.
+export type TmdbMultiResult =
+  | (TmdbMovie & { media_type: "movie" })
+  | (TmdbTvShow & { media_type: "tv" })
+  | (TmdbPerson & { media_type: "person" });
+
+export type TmdbMultiListResponse = TmdbListResponse<TmdbMultiResult>;
 
 export type MovieCategory =
   "popular" | "now_playing" | "top_rated" | "upcoming";
@@ -54,13 +77,6 @@ export interface TmdbTvShow {
   poster_path: string | null;
   adult: boolean;
   backdrop_path: string | null;
-}
-
-export interface TmdbMovieListResponse {
-  page: number;
-  results: TmdbMovie[];
-  total_pages: number;
-  total_results: number;
 }
 
 export interface TmdbTvDetail extends TmdbTvShow {

@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState, type SyntheticEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { mapMovieSummary } from "../api/mappers";
-import { searchMovies } from "../api/tmdb";
+import { mapMultiResults } from "../api/mappers";
+import { searchMulti } from "../api/tmdb";
 import { useDebounce } from "../hooks/useDebounce";
 import { getPosterUrl, getReleaseYear } from "../utils/movieHelpers";
 
@@ -19,8 +19,9 @@ const SearchBar = ({ onClose, autoFocus = false }: SearchBarProps) => {
   const debouncedValue = useDebounce(inputValue, 300);
   const { data } = useQuery({
     queryKey: ["searchBar", debouncedValue],
-    queryFn: () => searchMovies(debouncedValue, 1),
-    select: (raw) => raw.results.map(mapMovieSummary).slice(0, 6),
+    queryFn: () => searchMulti(debouncedValue, 1),
+    // Önce kişileri ele, SONRA ilk 6'yı al: tersi olsa 6'nın 4'ü kişi olup elenebilirdi.
+    select: (raw) => mapMultiResults(raw.results).slice(0, 6),
     enabled: !!debouncedValue,
   });
   useEffect(() => {
@@ -56,7 +57,7 @@ const SearchBar = ({ onClose, autoFocus = false }: SearchBarProps) => {
           onChange={(e) => setInputValue(e.target.value)}
           onFocus={() => setIsOpen(true)}
           autoFocus={autoFocus}
-          placeholder="Film Ara..."
+          placeholder="Film veya dizi ara..."
           className="w-full px-4 py-2 rounded-full bg-gray-800 border border-gray-700 text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600"
         />
       </form>
@@ -64,8 +65,8 @@ const SearchBar = ({ onClose, autoFocus = false }: SearchBarProps) => {
         <div className="absolute top-full left-0 right-0 mt-1 bg-gray-800 rounded shadow-lg z-50 overflow-hidden">
           {data.map((movie) => (
             <Link
-              key={movie.id}
-              to={`/movie/${movie.id}`}
+              key={`${movie.mediaType}-${movie.id}`}
+              to={`/${movie.mediaType}/${movie.id}`}
               onClick={() => {
                 setIsOpen(false);
                 onClose?.();
@@ -80,7 +81,10 @@ const SearchBar = ({ onClose, autoFocus = false }: SearchBarProps) => {
               />
               <div>
                 <h2 className="text-sm text-white">{movie.title}</h2>
-                <p className="text-xs text-gray-400">{getReleaseYear(movie)}</p>
+                <p className="text-xs text-gray-400">
+                  {movie.mediaType === "movie" ? "Film" : "Dizi"}
+                  {getReleaseYear(movie) && ` · ${getReleaseYear(movie)}`}
+                </p>
               </div>
             </Link>
           ))}

@@ -5,8 +5,9 @@ const linkGroups = [
     title: "Keşfet",
     links: [
       { label: "Ana Sayfa", to: "/" },
-      { label: "Favorilerim", to: "/favorites" },
+      { label: "Filmler", to: "/movie" },
       { label: "Diziler", to: "/tv" },
+      { label: "Favorilerim", to: "/favorites" },
     ],
   },
   {

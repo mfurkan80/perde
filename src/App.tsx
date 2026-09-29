@@ -16,7 +16,7 @@ import SearchPage from "./pages/SearchPage";
 import { logout, setLoading, setUser } from "./store/authSlice";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
 import ContactPage from "./pages/ContactPage";
-import TvPage from "./pages/TvPage";
+import BrowsePage from "./pages/BrowsePage";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -49,6 +49,12 @@ const App = () => {
               </ProductedRoute>
             }
           />
+          {/* key: /movie → /tv geçişinde React aynı component'i yeniden kullanmasın, sıfırdan kursun */}
+          <Route
+            path="/movie"
+            element={<BrowsePage key="movie" mediaType="movie" />}
+          />
+          <Route path="/tv" element={<BrowsePage key="tv" mediaType="tv" />} />
           <Route
             path="/movie/:id"
             element={<MovieDetailPage mediaType="movie" />}
@@ -65,7 +71,6 @@ const App = () => {
           />
           <Route path="/privacy" element={<PrivacyPolicyPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/tv" element={<TvPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

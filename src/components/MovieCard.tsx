@@ -1,14 +1,22 @@
 import { Link } from "react-router-dom";
 import type { MovieSummary } from "../types/movie";
 import { getPosterUrl, getReleaseYear } from "../utils/movieHelpers";
+
 interface MovieCardProps {
   movie: MovieSummary;
+  // Film ve dizinin karışık olduğu listelerde (arama "Tümü") türü göster.
+  showMediaType?: boolean;
 }
 
-const MovieCard = ({ movie }: MovieCardProps) => {
+const MovieCard = ({ movie, showMediaType = false }: MovieCardProps) => {
   return (
-    <div className="rounded-lg overflow-hidden hover:scale-105 transition">
+    <div className="relative rounded-lg overflow-hidden hover:scale-105 transition">
       <Link className="block" to={`/${movie.mediaType}/${movie.id}`}>
+        {showMediaType && (
+          <span className="absolute left-2 top-2 rounded bg-black/75 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide">
+            {movie.mediaType === "movie" ? "Film" : "Dizi"}
+          </span>
+        )}
         <img
           className="w-full h-48 md:h-72 object-cover"
           src={getPosterUrl(movie)}

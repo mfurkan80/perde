@@ -1,13 +1,16 @@
 import type {
   CastMember,
+  MediaPage,
   MovieDetail,
   MovieSummary,
   Video,
 } from "../types/movie";
 import type {
   TmdbCastMember,
+  TmdbListResponse,
   TmdbMovie,
   TmdbMovieDetail,
+  TmdbMultiResult,
   TmdbTvDetail,
   TmdbTvShow,
   TmdbVideo,
@@ -71,4 +74,24 @@ export const mapTvDetail = (raw: TmdbTvDetail): MovieDetail => ({
   similar: raw.similar.results.map(mapTvSummary),
   seasonCount: raw.number_of_seasons,
   episodeCount: raw.number_of_episodes,
+});
+
+// Kişileri at, kalan film ve dizileri kendi mapper'larından geçir.
+export const mapMultiResults = (rawList: TmdbMultiResult[]): MovieSummary[] =>
+  rawList
+    .filter((raw) => raw.media_type !== "person")
+    .map((raw) =>
+      raw.media_type === "movie" ? mapMovieSummary(raw) : mapTvSummary(raw),
+    );
+
+// Her türden TMDB liste cevabını aynı MediaPage şekline çevirir.
+// T: listenin içindeki ham tip. mapItems o ham listeyi MovieSummary[]'e çevirmeyi bilir.
+export const mapListPage = <T>(
+  raw: TmdbListResponse<T>,
+  mapItems: (items: T[]) => MovieSummary[],
+): MediaPage => ({
+  items: mapItems(raw.results),
+  page: raw.page,
+  totalPages: raw.total_pages,
+  totalResults: raw.total_results,
 });

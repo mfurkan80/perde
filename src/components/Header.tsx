@@ -86,7 +86,7 @@ const Header = () => {
           <span className="h-6 w-px bg-gray-700" />
 
           <nav className="flex gap-4 text-sm">
-            <NavLink to="/" end className={linkClass}>
+            <NavLink to="/movie" className={linkClass}>
               Filmler
             </NavLink>
             <NavLink to="/tv" className={linkClass}>
@@ -99,7 +99,7 @@ const Header = () => {
           <SearchBar />
         </div>
 
-        <nav className="flex gap-6 justify-end w-64">
+        <nav className="flex items-center gap-6 justify-end w-64">
           <NavLinks />
         </nav>
       </div>

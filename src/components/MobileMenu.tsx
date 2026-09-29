@@ -76,6 +76,9 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
 
         <div className="flex flex-col gap-1">
           <NavLink to="/" end onClick={onClose} className={mobileLinkClass}>
+            Ana Sayfa
+          </NavLink>
+          <NavLink to="/movie" onClick={onClose} className={mobileLinkClass}>
             Filmler
           </NavLink>
           <NavLink to="/tv" onClick={onClose} className={mobileLinkClass}>

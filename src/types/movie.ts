@@ -1,3 +1,5 @@
+export type MediaType = "movie" | "tv";
+
 export interface MovieSummary {
   id: number;
   title: string;
@@ -7,8 +9,18 @@ export interface MovieSummary {
   posterPath?: string;
   adult: boolean;
   backdropPath?: string;
-  mediaType: "movie" | "tv";
+  mediaType: MediaType;
 }
+
+// Sayfalı listelerin (keşfet, arama) uygulama içindeki hâli.
+export interface MediaPage {
+  items: MovieSummary[];
+  page: number;
+  totalPages: number;
+  totalResults: number;
+}
+
+export type SortKey = "popular" | "top_rated" | "newest";
 
 export interface MovieDetail extends MovieSummary {
   genres: Genre[];

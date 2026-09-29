@@ -12,6 +12,7 @@ import {
 import CastRow from "../components/CastRow";
 import Spinner from "../components/Spinner";
 import FavoriteButton from "../components/FavoriteButton";
+import CommentSection from "../components/CommentSection";
 
 interface MovieDetailPageProps {
   mediaType: "movie" | "tv";
@@ -100,6 +101,7 @@ const MovieDetailPage = ({ mediaType }: MovieDetailPageProps) => {
         </div>
       </section>
       <CastRow cast={data.cast} />
+      <CommentSection mediaType={mediaType} mediaId={data.id} />
     </div>
   );
 };

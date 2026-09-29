@@ -17,7 +17,10 @@ const NavLinks = ({ compact = false }: NavLinksProps) => {
           Giriş Yap
         </NavLink>
         {!compact && (
-          <NavLink to="/register" className={linkClass}>
+          <NavLink
+            to="/register"
+            className="rounded bg-white px-4 py-1.5 font-semibold text-gray-900 transition-colors hover:bg-gray-200"
+          >
             Kayıt Ol
           </NavLink>
         )}
