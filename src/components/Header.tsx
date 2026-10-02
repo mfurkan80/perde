@@ -17,10 +17,8 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-gray-900 text-white px-4 py-4">
-      {/* MOBİL: sadece md altında görünür */}
       <div className="md:hidden">
         {isSearchOpen ? (
-          // Arama modu: satırın tamamı arama kutusu + kapat butonu
           <div className="flex h-10 items-center gap-3">
             <div className="flex-1">
               <SearchBar autoFocus onClose={closeSearch} />
@@ -35,7 +33,6 @@ const Header = () => {
             </button>
           </div>
         ) : (
-          // Normal mod: solda menü + logo, sağda arama + giriş
           <div className="flex h-10 items-center justify-between">
             <div className="flex items-center gap-3">
               <button
@@ -71,10 +68,8 @@ const Header = () => {
         )}
       </div>
 
-      {/* Menü, flex satırının DIŞINDA: yoksa justify-between'i bozar */}
       <MobileMenu isOpen={isMenuOpen} onClose={closeMenu} />
 
-      {/* MASAÜSTÜ: sadece md ve üstünde görünür */}
       <div className="hidden md:flex max-w-7xl mx-auto items-center gap-4">
         <div className="flex items-center gap-6">
           <Link to="/">

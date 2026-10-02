@@ -10,12 +10,10 @@ export const sendContactMessage = async (
     "Content-Type": "application/json",
   };
 
-  // ADIM 1
   if (token) {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  // ADIM 2
   const response = await fetch(`${API_URL}/contact`, {
     method: "POST",
     headers: headers,

@@ -67,6 +67,22 @@ const UserMenu = () => {
           >
             Favoriler
           </Link>
+          <Link
+            to="/watched"
+            onClick={() => setIsOpen(false)}
+            className="block px-4 py-2 text-sm hover:bg-gray-700"
+          >
+            İzlediklerim
+          </Link>
+          {user.role === "admin" && (
+            <Link
+              to="/admin"
+              onClick={() => setIsOpen(false)}
+              className="block px-4 py-2 text-sm text-yellow-400 hover:bg-gray-700"
+            >
+              Admin Paneli
+            </Link>
+          )}
           <button
             onClick={handleLogout}
             className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-gray-700"

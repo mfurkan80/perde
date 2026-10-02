@@ -12,7 +12,6 @@ export interface MovieSummary {
   mediaType: MediaType;
 }
 
-// Sayfalı listelerin (keşfet, arama) uygulama içindeki hâli.
 export interface MediaPage {
   items: MovieSummary[];
   page: number;

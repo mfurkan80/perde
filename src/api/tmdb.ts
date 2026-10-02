@@ -50,8 +50,6 @@ export const fetchTvByCategory = (
     "Diziler yüklenemedi.",
   );
 
-// --- Arama ---
-
 const searchUrl = (path: string, query: string, page: number) =>
   `${BASE_URL}/search/${path}?query=${encodeURIComponent(query)}&language=tr-TR&page=${page}`;
 
@@ -73,9 +71,6 @@ export const searchTv = (
 ): Promise<TmdbTvListResponse> =>
   getJson(searchUrl("tv", query, page), "Arama başarısız oldu.");
 
-// --- Tür listesi ve keşfet ---
-
-// Film ve dizi türlerinin id'leri FARKLI (film "Aksiyon" = 28, dizi "Aksiyon & Macera" = 10759).
 export const fetchGenres = (
   mediaType: MediaType,
 ): Promise<TmdbGenreListResponse> =>
@@ -94,7 +89,6 @@ const buildDiscoverParams = (
   mediaType: MediaType,
   { genreIds, sort, page }: DiscoverFilters,
 ) => {
-  // Filmde çıkış tarihi alanı ile dizide ilk yayın tarihi alanının adı farklı.
   const dateField =
     mediaType === "movie" ? "primary_release_date" : "first_air_date";
 
@@ -104,7 +98,6 @@ const buildDiscoverParams = (
     include_adult: "false",
   });
 
-  // Virgül = VE: seçilen türlerin HEPSİNİ içerenler.
   if (genreIds.length > 0) {
     params.set("with_genres", genreIds.join(","));
   }
@@ -114,12 +107,10 @@ const buildDiscoverParams = (
       params.set("sort_by", "popularity.desc");
       break;
     case "top_rated":
-      // Oy eşiği olmadan 1 kişinin 10 verdiği bilinmeyen yapımlar en üste çıkar.
       params.set("sort_by", "vote_average.desc");
       params.set("vote_count.gte", "300");
       break;
     case "newest":
-      // Bugünden sonrası "henüz çıkmamış" demek; oy eşiği de 0 oylu kişisel yüklemeleri eler.
       params.set("sort_by", `${dateField}.desc`);
       params.set(`${dateField}.lte`, new Date().toISOString().slice(0, 10));
       params.set("vote_count.gte", "20");

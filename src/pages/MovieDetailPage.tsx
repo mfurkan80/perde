@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { fetchMovieDetail, fetchTvDetail } from "../api/tmdb";
-import { mapMovieDetail, mapTvDetail } from "../api/mappers";
+import { fetchMediaDetail } from "../api/media";
 import {
   getBackdropUrl,
   getBestTrailer,
@@ -13,6 +12,8 @@ import CastRow from "../components/CastRow";
 import Spinner from "../components/Spinner";
 import FavoriteButton from "../components/FavoriteButton";
 import CommentSection from "../components/CommentSection";
+import WatchedButton from "../components/WatchedButton";
+import WatchHistory from "../components/WatchHistory";
 
 interface MovieDetailPageProps {
   mediaType: "movie" | "tv";
@@ -27,19 +28,13 @@ const MovieDetailPage = ({ mediaType }: MovieDetailPageProps) => {
         throw new Error("İçerik bulunamadı :/");
       }
 
-      if (mediaType === "movie") {
-        const raw = await fetchMovieDetail(id);
-        return mapMovieDetail(raw);
-      }
-
-      const raw = await fetchTvDetail(id);
-      return mapTvDetail(raw);
+      return fetchMediaDetail(mediaType, id);
     },
     enabled: !!id,
   });
 
   if (!id) {
-    return <p>Film bulunamadı :/</p>;
+    return <p>İçerik bulunamadı :/</p>;
   }
   if (isLoading) {
     return <Spinner />;
@@ -48,7 +43,7 @@ const MovieDetailPage = ({ mediaType }: MovieDetailPageProps) => {
     return <p>{error.message}</p>;
   }
   if (!data) {
-    return <p>Film bulunamadı :/</p>;
+    return <p>İçerik bulunamadı :/</p>;
   }
   const trailer = getBestTrailer(data.videos);
   return (
@@ -84,23 +79,34 @@ const MovieDetailPage = ({ mediaType }: MovieDetailPageProps) => {
             <p className="text-sm text-gray-400 mt-2">{getGenreNames(data)}</p>
             <h2 className="mt-6 text-lg font-semibold">Özet</h2>
             <p className="mt-2 text-gray-200 max-w-2xl">{data.overview}</p>
-            <div className="flex gap-3 mt-6">
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
               {trailer && (
                 <a
                   href={`https://www.youtube.com/watch?v=${trailer.key}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block bg-white text-gray-900 px-6 py-2 rounded font-semibold"
+                  className="col-span-2 rounded bg-white px-6 py-2 text-center font-semibold text-gray-900"
                 >
                   Fragmanı İzle
                 </a>
               )}
               <FavoriteButton mediaId={data.id} mediaType={mediaType} />
+              <WatchedButton
+                mediaId={data.id}
+                mediaType={mediaType}
+                title={data.title}
+              />
             </div>
           </div>
         </div>
       </section>
+
       <CastRow cast={data.cast} />
+      <WatchHistory
+        mediaId={data.id}
+        mediaType={mediaType}
+        title={data.title}
+      />
       <CommentSection mediaType={mediaType} mediaId={data.id} />
     </div>
   );

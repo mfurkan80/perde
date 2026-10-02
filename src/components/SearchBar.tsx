@@ -20,7 +20,6 @@ const SearchBar = ({ onClose, autoFocus = false }: SearchBarProps) => {
   const { data } = useQuery({
     queryKey: ["searchBar", debouncedValue],
     queryFn: () => searchMulti(debouncedValue, 1),
-    // Önce kişileri ele, SONRA ilk 6'yı al: tersi olsa 6'nın 4'ü kişi olup elenebilirdi.
     select: (raw) => mapMultiResults(raw.results).slice(0, 6),
     enabled: !!debouncedValue,
   });

@@ -5,10 +5,8 @@ import { discoverMovies, discoverTv, fetchGenres } from "../api/tmdb";
 import MediaGrid, { MediaGridSkeleton } from "../components/MediaGrid";
 import type { MediaType, SortKey } from "../types/movie";
 
-// TMDB sayfa 500'ün ötesini vermiyor.
 const MAX_PAGE = 500;
 
-// TMDB toplam sonuç sayısını ~20.000'de kesiyor: filtresiz liste de aksiyon da "20001" döner.
 const RESULT_COUNT_CAP = 20000;
 
 const formatResultCount = (count: number) =>
@@ -24,7 +22,6 @@ const SORT_OPTIONS: { value: SortKey; label: string }[] = [
 
 const DEFAULT_SORT: SortKey = "popular";
 
-// URL'den gelen her şey string ve güvenilmez: ?sort=abc de yazılabilir.
 const isSortKey = (value: string | null): value is SortKey =>
   SORT_OPTIONS.some((option) => option.value === value);
 
@@ -39,7 +36,6 @@ interface BrowsePageProps {
 }
 
 const BrowsePage = ({ mediaType }: BrowsePageProps) => {
-  // Filtreler state'te değil URL'de: link paylaşılabilir, geri tuşu çalışır, F5'te kaybolmaz.
   const [searchParams, setSearchParams] = useSearchParams();
   const sortParam = searchParams.get("sort");
   const sort = isSortKey(sortParam) ? sortParam : DEFAULT_SORT;
@@ -48,7 +44,7 @@ const BrowsePage = ({ mediaType }: BrowsePageProps) => {
   const { data: genres } = useQuery({
     queryKey: ["genres", mediaType],
     queryFn: async () => (await fetchGenres(mediaType)).genres,
-    staleTime: Infinity, // Tür listesi pratikte hiç değişmez.
+    staleTime: Infinity,
   });
 
   const {
@@ -72,7 +68,6 @@ const BrowsePage = ({ mediaType }: BrowsePageProps) => {
       return mapListPage(raw, (items) => items.map(mapTvSummary));
     },
     initialPageParam: 1,
-    // Sıradaki sayfa numarası; undefined dönerse "daha fazla yok" demek.
     getNextPageParam: (lastPage) =>
       lastPage.page < Math.min(lastPage.totalPages, MAX_PAGE)
         ? lastPage.page + 1
@@ -80,8 +75,6 @@ const BrowsePage = ({ mediaType }: BrowsePageProps) => {
     staleTime: 5 * 60 * 1000,
   });
 
-  // Sayfaları tek listeye düzleştir. Popülerlik sayfalar arasında değişebildiği için
-  // aynı içerik iki sayfada birden gelebiliyor: tekrarları at.
   const seen = new Set<number>();
   const items = (data?.pages ?? [])
     .flatMap((page) => page.items)
@@ -93,13 +86,11 @@ const BrowsePage = ({ mediaType }: BrowsePageProps) => {
 
   const totalResults = data?.pages[0]?.totalResults;
 
-  // Varsayılan değerleri URL'e yazmıyoruz: /movie?sort=popular yerine sadece /movie.
   const updateParams = (next: { genres?: number[]; sort?: SortKey }) => {
     const params = new URLSearchParams(searchParams);
 
     if (next.genres !== undefined) {
       if (next.genres.length > 0) {
-        // Sıralı yaz: [28,12] ile [12,28] aynı filtre, aynı önbellek anahtarı olsun.
         params.set("genres", [...next.genres].sort((a, b) => a - b).join(","));
       } else {
         params.delete("genres");
@@ -155,7 +146,6 @@ const BrowsePage = ({ mediaType }: BrowsePageProps) => {
         </label>
       </div>
 
-      {/* Mobilde yatay kayan tek satır, masaüstünde alt alta sarılan etiketler */}
       <div className="mb-8 flex gap-2 overflow-x-auto pb-2 md:flex-wrap md:overflow-visible md:pb-0">
         {genres?.map((genre) => {
           const isActive = genreIds.includes(genre.id);

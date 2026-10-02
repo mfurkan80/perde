@@ -12,8 +12,6 @@ interface CommentSectionProps {
 }
 
 const CommentSection = ({ mediaType, mediaId }: CommentSectionProps) => {
-  // Üç şey lazım: token (isteğe eklemek için), user (kim olduğunu bilmek için),
-  // isLoading (kullanıcı bilgisi henüz yükleniyor mu — aşağıdaki tuzak)
   const {
     user,
     token,
@@ -25,11 +23,8 @@ const CommentSection = ({ mediaType, mediaId }: CommentSectionProps) => {
     isLoading,
     error,
   } = useQuery({
-    // Cevap isteği atana göre değişiyor (kendi bekleyenlerin de geliyor),
-    // bu yüzden kullanıcı anahtarın parçası. Anonimse null.
     queryKey: ["comments", mediaType, mediaId, user?.id ?? null],
     queryFn: () => fetchComments(mediaType, mediaId, token),
-    // Kullanıcı bilgisi yüklenene kadar bekle; giriş yapılmamış olması engel değil.
     enabled: !authLoading,
   });
 
@@ -37,7 +32,6 @@ const CommentSection = ({ mediaType, mediaId }: CommentSectionProps) => {
     <section className="mb-8">
       <h2 className="mb-3 text-xl font-semibold">Yorumlar</h2>
 
-      {/* Formu gizlemek güvenlik değil, deneyim: backend zaten requireAuth ile koruyor. */}
       {user ? (
         <CommentForm mediaType={mediaType} mediaId={mediaId} />
       ) : (

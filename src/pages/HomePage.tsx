@@ -1,7 +1,6 @@
 import Hero from "../components/Hero";
 import MovieRow from "../components/MovieRow";
 
-// Film ve dizi satırları dönüşümlü: her kategori önce film, sonra dizi karşılığıyla.
 const HomePage = () => {
   return (
     <div>

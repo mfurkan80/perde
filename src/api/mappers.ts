@@ -76,7 +76,6 @@ export const mapTvDetail = (raw: TmdbTvDetail): MovieDetail => ({
   episodeCount: raw.number_of_episodes,
 });
 
-// Kişileri at, kalan film ve dizileri kendi mapper'larından geçir.
 export const mapMultiResults = (rawList: TmdbMultiResult[]): MovieSummary[] =>
   rawList
     .filter((raw) => raw.media_type !== "person")
@@ -84,8 +83,6 @@ export const mapMultiResults = (rawList: TmdbMultiResult[]): MovieSummary[] =>
       raw.media_type === "movie" ? mapMovieSummary(raw) : mapTvSummary(raw),
     );
 
-// Her türden TMDB liste cevabını aynı MediaPage şekline çevirir.
-// T: listenin içindeki ham tip. mapItems o ham listeyi MovieSummary[]'e çevirmeyi bilir.
 export const mapListPage = <T>(
   raw: TmdbListResponse<T>,
   mapItems: (items: T[]) => MovieSummary[],

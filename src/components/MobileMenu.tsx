@@ -18,8 +18,6 @@ const mobileLinkClass = ({ isActive }: { isActive: boolean }) =>
 const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
   const user = useAppSelector((state) => state.auth.user);
 
-  // Menü açıkken: arkadaki sayfa kaymasın + Escape ile kapansın.
-  // İkisi de React dışına (document) dokunduğu için effect işi.
   useEffect(() => {
     if (!isOpen) return;
     const mq = window.matchMedia("(min-width: 768px)");
@@ -45,7 +43,6 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
 
   return (
     <div className="md:hidden">
-      {/* Karartma: panelin dışına dokunmak = buna dokunmak → kapat */}
       <div
         onClick={onClose}
         className={`fixed inset-0 z-50 bg-black/60 transition-all duration-300 ${
@@ -53,7 +50,6 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
         }`}
       />
 
-      {/* Panel: soldan kayarak gelir */}
       <nav
         aria-label="Mobil menü"
         className={`fixed inset-y-0 left-0 z-50 flex w-72 max-w-[80%] flex-col bg-gray-900 p-6 shadow-xl transition-all duration-300 ${
@@ -84,15 +80,6 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
           <NavLink to="/tv" onClick={onClose} className={mobileLinkClass}>
             Diziler
           </NavLink>
-          {user && (
-            <NavLink
-              to="/favorites"
-              onClick={onClose}
-              className={mobileLinkClass}
-            >
-              Favorilerim
-            </NavLink>
-          )}
         </div>
 
         {!user && (

@@ -8,6 +8,7 @@ const linkGroups = [
       { label: "Filmler", to: "/movie" },
       { label: "Diziler", to: "/tv" },
       { label: "Favorilerim", to: "/favorites" },
+      { label: "İzlediklerim", to: "/watched" },
     ],
   },
   {

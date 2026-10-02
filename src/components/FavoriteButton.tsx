@@ -14,9 +14,9 @@ const FavoriteButton = ({ mediaId, mediaType }: FavoriteButtonProps) => {
   const navigate = useNavigate();
 
   const { data: favorites } = useQuery({
-    queryKey: ["favorites"],
+    queryKey: ["favorites", user?.id],
     queryFn: () => fetchFavorites(token!),
-    enabled: !!token,
+    enabled: !!token && !!user,
   });
 
   const isFavorite =
@@ -47,7 +47,7 @@ const FavoriteButton = ({ mediaId, mediaType }: FavoriteButtonProps) => {
     <button
       onClick={handleClick}
       disabled={mutation.isPending}
-      className="flex items-center gap-2 px-6 py-2 rounded font-semibold border border-gray-600 hover:bg-gray-800 disabled:opacity-50"
+      className="flex items-center justify-center gap-2 rounded border border-gray-600 px-3 py-2 text-sm font-semibold hover:bg-gray-800 disabled:opacity-50 sm:px-6 sm:text-base"
     >
       <span className={isFavorite ? "text-red-500" : "text-gray-400"}>
         {isFavorite ? "♥" : "♡"}

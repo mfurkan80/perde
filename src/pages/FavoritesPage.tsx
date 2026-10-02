@@ -1,8 +1,7 @@
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { fetchFavorites } from "../api/favorites";
-import { mapMovieDetail, mapTvDetail } from "../api/mappers";
-import { fetchMovieDetail, fetchTvDetail } from "../api/tmdb";
+import { fetchMediaDetail } from "../api/media";
 import MovieCard from "../components/MovieCard";
 import Spinner from "../components/Spinner";
 import type { MovieSummary } from "../types/movie";
@@ -31,25 +30,17 @@ const FavoriteSection = ({ title, items }: FavoriteSectionProps) => {
 };
 
 const FavoritesPage = () => {
-  const token = useAppSelector((state) => state.auth.token);
+  const { user, token } = useAppSelector((state) => state.auth);
   const { data: favorites, isLoading } = useQuery({
-    queryKey: ["favorites"],
+    queryKey: ["favorites", user?.id],
     queryFn: () => fetchFavorites(token!),
-    enabled: !!token,
+    enabled: !!token && !!user,
   });
 
   const mediaQueries = useQueries({
     queries: (favorites ?? []).map((fav) => ({
       queryKey: ["media", fav.mediaType, String(fav.mediaId)],
-      queryFn: async () => {
-        if (fav.mediaType === "movie") {
-          const raw = await fetchMovieDetail(String(fav.mediaId));
-          return mapMovieDetail(raw);
-        }
-
-        const raw = await fetchTvDetail(String(fav.mediaId));
-        return mapTvDetail(raw);
-      },
+      queryFn: () => fetchMediaDetail(fav.mediaType, String(fav.mediaId)),
     })),
   });
 

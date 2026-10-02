@@ -6,7 +6,6 @@ import type { MovieCategory, TvCategory } from "../types/tmdb";
 import MovieCard from "./MovieCard";
 import MovieCardSkeleton from "./MovieCardSkeleton";
 
-// Ortak alanlar & (film ya da dizi): mediaType'a göre category daralmaya devam ediyor.
 type MovieRowProps = { title: string; viewAllTo?: string } & (
   | { mediaType: "movie"; category: MovieCategory }
   | { mediaType: "tv"; category: TvCategory }

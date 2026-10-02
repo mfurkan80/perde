@@ -1,4 +1,3 @@
-// Gerçek kartla aynı düzen: önce poster, ALTINDA başlık ve yıl satırı.
 const MovieCardSkeleton = () => {
   return (
     <div className="animate-pulse">

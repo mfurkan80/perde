@@ -13,7 +13,6 @@ interface MediaGridProps {
 const MediaGrid = ({ items, showMediaType = false }: MediaGridProps) => (
   <div className={gridClass}>
     {items.map((item) => (
-      // Film 1399 ile dizi 1399 aynı listede olabilir: key tek başına id olamaz.
       <MovieCard
         key={`${item.mediaType}-${item.id}`}
         movie={item}

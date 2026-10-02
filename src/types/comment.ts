@@ -9,7 +9,6 @@ export interface Comment {
   replies?: Comment[];
 }
 
-// Sunucuya giden veri: id, status, username, createdAt'i sunucu belirler.
 export interface NewComment {
   mediaId: number;
   mediaType: "movie" | "tv";

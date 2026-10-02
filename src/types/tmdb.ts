@@ -18,8 +18,6 @@ export interface TmdbMovieDetail extends TmdbMovie {
   similar: { results: TmdbMovie[] };
 }
 
-// TMDB'nin bütün liste cevapları aynı zarfta gelir, sadece `results`'ın içi değişir.
-// T bir yer tutucu: TmdbListResponse<TmdbMovie>, TmdbListResponse<TmdbTvShow> ...
 export interface TmdbListResponse<T> {
   page: number;
   results: T[];
@@ -40,7 +38,6 @@ export interface TmdbPerson {
   profile_path: string | null;
 }
 
-// /search/multi film, dizi ve kişi karışık döndürür; media_type hangisi olduğunu söyler.
 export type TmdbMultiResult =
   | (TmdbMovie & { media_type: "movie" })
   | (TmdbTvShow & { media_type: "tv" })

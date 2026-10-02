@@ -10,7 +10,6 @@ interface CommentFormProps {
   onSuccess?: () => void;
 }
 
-// Backend'deki sınırlarla aynı olmalı.
 const MIN_LENGTH = 2;
 const MAX_LENGTH = 2000;
 
@@ -39,8 +38,6 @@ const CommentForm = ({
     onSuccess: () => {
       setContent("");
       setIsSpoiler(false);
-      // Önek eşleşmesi: kullanıcı id'si ne olursa olsun bu içeriğin
-      // bütün yorum önbelleklerini bayat say.
       queryClient.invalidateQueries({
         queryKey: ["comments", mediaType, mediaId],
       });

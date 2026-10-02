@@ -4,7 +4,6 @@ import { getPosterUrl, getReleaseYear } from "../utils/movieHelpers";
 
 interface MovieCardProps {
   movie: MovieSummary;
-  // Film ve dizinin karışık olduğu listelerde (arama "Tümü") türü göster.
   showMediaType?: boolean;
 }
 

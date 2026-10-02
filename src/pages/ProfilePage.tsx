@@ -48,7 +48,6 @@ const ProfilePage = () => {
       <h1 className="text-2xl font-bold mb-6">Profil</h1>
 
       <div className="bg-gray-900 rounded-lg p-6">
-        {/* Kullanıcı adı */}
         <div className="flex items-center justify-between py-3 border-b border-gray-800">
           <div>
             <p className="text-sm text-gray-400">Kullanıcı adı</p>
@@ -95,7 +94,6 @@ const ProfilePage = () => {
           </div>
         </div>
 
-        {/* E-posta */}
         <div className="flex items-center justify-between py-3 border-b border-gray-800">
           <div>
             <p className="text-sm text-gray-400">E-posta</p>
@@ -142,7 +140,6 @@ const ProfilePage = () => {
           </div>
         </div>
 
-        {/* Hata/başarı mesajı */}
         {profileMutation.isError && (
           <p className="text-red-400 text-sm mt-3">
             {profileMutation.error.message}
@@ -152,7 +149,6 @@ const ProfilePage = () => {
           <p className="text-green-400 text-sm mt-3">Profil güncellendi.</p>
         )}
 
-        {/* Şifre */}
         <div className="pt-3">
           {editingPassword ? (
             <form

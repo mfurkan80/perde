@@ -19,14 +19,11 @@ const formatDate = (iso: string) =>
 const CommentItem = ({ comment, mediaType, mediaId }: CommentItemProps) => {
   const user = useAppSelector((state) => state.auth.user);
 
-  // Her yorumun kendi durumu: 10 yorum = 10 ayrı useState çifti.
   const [isRevealed, setIsRevealed] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
 
   const isHidden = comment.isSpoiler && !isRevealed;
 
-  // Tek seviye: ana yoruma yanıt → o yorumun altına.
-  // Bir yanıta yanıt → yine aynı ana yorumun altına (yanıtın parentId'si zaten ana yorum).
   const replyTargetId = comment.parentId ?? comment.id;
   const canReply = user !== null && comment.status === "approved";
 

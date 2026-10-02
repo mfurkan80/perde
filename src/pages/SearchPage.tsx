@@ -30,8 +30,6 @@ const SearchPage = () => {
   const type = isSearchType(typeParam) ? typeParam : "all";
   const page = Math.max(1, Number(searchParams.get("page")) || 1);
 
-  // Her sekme kendi endpoint'ine gidiyor: sayfalama her sekmede doğru çalışsın diye.
-  // ("Tümü"nden gelen sonuçları tarayıcıda süzseydik 2. sayfanın ne olduğu bozulurdu.)
   const { data, isLoading, isFetching, error } = useQuery({
     queryKey: ["search", type, query, page],
     queryFn: async () => {
@@ -52,7 +50,6 @@ const SearchPage = () => {
 
   const totalPages = data ? Math.min(data.totalPages, MAX_PAGE) : 1;
 
-  // q hep korunur; varsayılan değerler (type=all, page=1) URL'e yazılmaz.
   const goTo = (next: { type?: SearchType; page?: number }) => {
     const nextType = next.type ?? type;
     const nextPage = next.page ?? 1;
@@ -60,7 +57,6 @@ const SearchPage = () => {
     if (nextType !== "all") params.type = nextType;
     if (nextPage > 1) params.page = String(nextPage);
     setSearchParams(params);
-    // Sadece URL'in ?... kısmı değişiyor, ScrollToTop yol değişmediği için çalışmaz.
     window.scrollTo({ top: 0 });
   };
 

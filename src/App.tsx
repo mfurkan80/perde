@@ -17,6 +17,9 @@ import { logout, setLoading, setUser } from "./store/authSlice";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
 import ContactPage from "./pages/ContactPage";
 import BrowsePage from "./pages/BrowsePage";
+import WatchedPage from "./pages/WatchedPage";
+import AdminRoute from "./components/AdminRoute";
+import AdminPage from "./pages/AdminPage";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -49,7 +52,22 @@ const App = () => {
               </ProductedRoute>
             }
           />
-          {/* key: /movie → /tv geçişinde React aynı component'i yeniden kullanmasın, sıfırdan kursun */}
+          <Route
+            path="/watched"
+            element={
+              <ProductedRoute>
+                <WatchedPage />
+              </ProductedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminPage />
+              </AdminRoute>
+            }
+          />
           <Route
             path="/movie"
             element={<BrowsePage key="movie" mediaType="movie" />}
