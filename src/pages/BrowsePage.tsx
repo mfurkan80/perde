@@ -146,7 +146,7 @@ const BrowsePage = ({ mediaType }: BrowsePageProps) => {
         </label>
       </div>
 
-      <div className="mb-8 flex gap-2 overflow-x-auto pb-2 md:flex-wrap md:overflow-visible md:pb-0">
+      <div className="mb-8 scrollbar-none flex gap-2 overflow-x-auto pb-2 md:flex-wrap md:overflow-visible md:pb-0">
         {genres?.map((genre) => {
           const isActive = genreIds.includes(genre.id);
           return (

@@ -1,17 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
 import { mapMovieSummary, mapTvSummary } from "../api/mappers";
 import { fetchMoviesByCategory, fetchTvByCategory } from "../api/tmdb";
 import type { MovieCategory, TvCategory } from "../types/tmdb";
 import MovieCard from "./MovieCard";
 import MovieCardSkeleton from "./MovieCardSkeleton";
+import ScrollRow from "./ScrollRow";
 
-type MovieRowProps = { title: string; viewAllTo?: string } & (
+type MovieRowProps = { title: string } & (
   | { mediaType: "movie"; category: MovieCategory }
   | { mediaType: "tv"; category: TvCategory }
 );
 
-const MovieRow = ({ title, category, mediaType, viewAllTo }: MovieRowProps) => {
+const MovieRow = ({ title, category, mediaType }: MovieRowProps) => {
   const { data, isLoading } = useQuery({
     queryKey: ["movies", mediaType, category],
     queryFn: async () => {
@@ -28,20 +28,10 @@ const MovieRow = ({ title, category, mediaType, viewAllTo }: MovieRowProps) => {
 
   return (
     <section className="mb-8">
-      <div className="mb-3 flex items-baseline justify-between gap-4">
-        <h2 className="text-xl font-semibold">{title}</h2>
-        {viewAllTo && (
-          <Link
-            to={viewAllTo}
-            className="shrink-0 text-sm text-gray-400 transition-colors hover:text-white"
-          >
-            Tümünü Gör →
-          </Link>
-        )}
-      </div>
+      <h2 className="mb-1 text-xl font-semibold">{title}</h2>
 
       {isLoading && (
-        <div className="flex gap-4 overflow-x-auto pb-2">
+        <div className="-mx-2 flex gap-4 scrollbar-none overflow-x-auto overflow-y-hidden px-2 pt-3 pb-4">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="w-32 md:w-40 shrink-0">
               <MovieCardSkeleton />
@@ -51,13 +41,16 @@ const MovieRow = ({ title, category, mediaType, viewAllTo }: MovieRowProps) => {
       )}
 
       {data && (
-        <div className="flex gap-4 overflow-x-auto pb-2">
+        <ScrollRow
+          wrapperClassName="-mx-2"
+          className="flex gap-4 px-2 pt-3 pb-4"
+        >
           {data.map((movie) => (
             <div key={movie.id} className="w-32 md:w-40 shrink-0">
               <MovieCard movie={movie} />
             </div>
           ))}
-        </div>
+        </ScrollRow>
       )}
     </section>
   );

@@ -89,3 +89,23 @@ export interface TmdbTvDetail extends TmdbTvShow {
 
 export type TvCategory =
   "popular" | "top_rated" | "on_the_air" | "airing_today";
+
+export type TmdbCombinedCredit =
+  | (TmdbMovie & {
+      media_type: "movie";
+      character: string;
+      vote_count: number;
+    })
+  | (TmdbTvShow & { media_type: "tv"; character: string; vote_count: number });
+
+export interface TmdbPersonDetail {
+  id: number;
+  name: string;
+  biography: string;
+  birthday: string | null;
+  deathday: string | null;
+  place_of_birth: string | null;
+  profile_path: string | null;
+  known_for_department: string;
+  combined_credits: { cast: TmdbCombinedCredit[] };
+}

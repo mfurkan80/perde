@@ -18,6 +18,7 @@ import { useAppDispatch, useAppSelector } from "./store/hooks";
 import ContactPage from "./pages/ContactPage";
 import BrowsePage from "./pages/BrowsePage";
 import WatchedPage from "./pages/WatchedPage";
+import PersonPage from "./pages/PersonPage";
 import AdminRoute from "./components/AdminRoute";
 import AdminPage from "./pages/AdminPage";
 
@@ -78,6 +79,7 @@ const App = () => {
             element={<MovieDetailPage mediaType="movie" />}
           />
           <Route path="/tv/:id" element={<MovieDetailPage mediaType="tv" />} />
+          <Route path="/person/:id" element={<PersonPage />} />
 
           <Route
             path="/profile"

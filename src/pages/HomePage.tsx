@@ -6,18 +6,8 @@ const HomePage = () => {
     <div>
       <Hero category="popular" />
 
-      <MovieRow
-        title="Popüler Filmler"
-        mediaType="movie"
-        category="popular"
-        viewAllTo="/movie"
-      />
-      <MovieRow
-        title="Popüler Diziler"
-        mediaType="tv"
-        category="popular"
-        viewAllTo="/tv"
-      />
+      <MovieRow title="Popüler Filmler" mediaType="movie" category="popular" />
+      <MovieRow title="Popüler Diziler" mediaType="tv" category="popular" />
 
       <MovieRow
         title="Vizyondaki Filmler"
@@ -34,13 +24,11 @@ const HomePage = () => {
         title="En Çok Oylanan Filmler"
         mediaType="movie"
         category="top_rated"
-        viewAllTo="/movie?sort=top_rated"
       />
       <MovieRow
         title="En Çok Oylanan Diziler"
         mediaType="tv"
         category="top_rated"
-        viewAllTo="/tv?sort=top_rated"
       />
 
       <MovieRow

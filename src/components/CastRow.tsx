@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import type { CastMember } from "../types/movie";
 import { getProfileUrl } from "../utils/movieHelpers";
+import ScrollRow from "./ScrollRow";
 
 interface CastRowProps {
   cast: CastMember[];
@@ -12,9 +14,13 @@ const CastRow = ({ cast }: CastRowProps) => {
   return (
     <section className="mb-8">
       <h2 className="text-xl font-semibold mb-3">Oyuncular</h2>
-      <div className="flex gap-4 overflow-x-auto pb-2">
+      <ScrollRow className="flex gap-4 pb-2">
         {cast.map((person) => (
-          <div key={person.id} className="w-32 shrink-0">
+          <Link
+            key={person.id}
+            to={`/person/${person.id}`}
+            className="group w-32 shrink-0"
+          >
             {person.profilePath ? (
               <img
                 className="w-full h-40 object-cover rounded"
@@ -33,11 +39,13 @@ const CastRow = ({ cast }: CastRowProps) => {
                 </svg>
               </div>
             )}
-            <p className="text-sm font-medium mt-2">{person.name}</p>
+            <p className="text-sm font-medium mt-2 group-hover:underline">
+              {person.name}
+            </p>
             <p className="text-xs text-gray-400">{person.character}</p>
-          </div>
+          </Link>
         ))}
-      </div>
+      </ScrollRow>
     </section>
   );
 };

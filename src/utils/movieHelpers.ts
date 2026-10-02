@@ -1,9 +1,4 @@
-import type {
-  CastMember,
-  MovieDetail,
-  MovieSummary,
-  Video,
-} from "../types/movie";
+import type { MovieDetail, MovieSummary, Video } from "../types/movie";
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 const BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/w1280";
@@ -53,7 +48,7 @@ export const getBestTrailer = (videos: Video[]): Video | undefined => {
   return videos[0];
 };
 
-export const getProfileUrl = (profile: CastMember): string => {
+export const getProfileUrl = (profile: { profilePath?: string }): string => {
   if (!profile.profilePath) {
     return "/placeholder.jpg";
   }

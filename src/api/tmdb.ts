@@ -5,6 +5,7 @@ import type {
   TmdbMovieDetail,
   TmdbMovieListResponse,
   TmdbMultiListResponse,
+  TmdbPersonDetail,
   TmdbTvDetail,
   TmdbTvListResponse,
   TvCategory,
@@ -30,6 +31,15 @@ export const fetchTvDetail = (id: string): Promise<TmdbTvDetail> =>
   getJson(
     `${BASE_URL}/tv/${id}?language=tr-TR&append_to_response=credits,videos,similar&include_video_language=tr,en`,
     "Dizi bilgisi yüklenemedi.",
+  );
+
+export const fetchPersonDetail = (
+  id: string,
+  language: string,
+): Promise<TmdbPersonDetail> =>
+  getJson(
+    `${BASE_URL}/person/${id}?language=${language}&append_to_response=combined_credits`,
+    "Oyuncu bilgisi yüklenemedi.",
   );
 
 export const fetchMoviesByCategory = (

@@ -5,12 +5,15 @@ import type {
   MovieSummary,
   Video,
 } from "../types/movie";
+import type { Credit, PersonDetail } from "../types/person";
 import type {
   TmdbCastMember,
+  TmdbCombinedCredit,
   TmdbListResponse,
   TmdbMovie,
   TmdbMovieDetail,
   TmdbMultiResult,
+  TmdbPersonDetail,
   TmdbTvDetail,
   TmdbTvShow,
   TmdbVideo,
@@ -92,3 +95,45 @@ export const mapListPage = <T>(
   totalPages: raw.total_pages,
   totalResults: raw.total_results,
 });
+
+const creditDate = (raw: TmdbCombinedCredit) =>
+  (raw.media_type === "movie" ? raw.release_date : raw.first_air_date) ?? "";
+
+export const mapPersonDetail = (raw: TmdbPersonDetail): PersonDetail => {
+  const uniqueCredits = [
+    ...new Map(
+      raw.combined_credits.cast.map((c) => [`${c.media_type}-${c.id}`, c]),
+    ).values(),
+  ];
+
+  const knownFor = [...uniqueCredits]
+    .filter((c) => c.poster_path)
+    .sort((a, b) => b.vote_count - a.vote_count)
+    .slice(0, 12)
+    .map((c) =>
+      c.media_type === "movie" ? mapMovieSummary(c) : mapTvSummary(c),
+    );
+
+  const credits: Credit[] = uniqueCredits
+    .map((c) => ({
+      id: c.id,
+      mediaType: c.media_type,
+      title: c.media_type === "movie" ? c.title : c.name,
+      date: creditDate(c),
+      character: c.character,
+    }))
+    .sort((a, b) => b.date.localeCompare(a.date));
+
+  return {
+    id: raw.id,
+    name: raw.name,
+    biography: raw.biography,
+    birthday: raw.birthday,
+    deathday: raw.deathday,
+    placeOfBirth: raw.place_of_birth,
+    profilePath: raw.profile_path ?? undefined,
+    department: raw.known_for_department,
+    knownFor,
+    credits,
+  };
+};
