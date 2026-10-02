@@ -1,81 +1,60 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { fetchAdminComments } from "../api/admin";
-import AdminCommentCard from "../components/AdminCommentCard";
-import Spinner from "../components/Spinner";
+import { fetchAdminMessages } from "../api/admin";
+import AdminComments from "../components/AdminComments";
+import AdminMessages from "../components/AdminMessages";
+import AdminUsers from "../components/AdminUsers";
 import { useAppSelector } from "../store/hooks";
-import type { CommentStatus } from "../types/admin";
 
-const TABS: { value: CommentStatus; label: string }[] = [
-  { value: "pending", label: "Bekleyen" },
-  { value: "approved", label: "Onaylanan" },
-  { value: "rejected", label: "Reddedilen" },
-];
-
-const EMPTY_MESSAGES: Record<CommentStatus, string> = {
-  pending: "Onay bekleyen yorum yok.",
-  approved: "Henüz onaylanmış yorum yok.",
-  rejected: "Reddedilmiş yorum yok.",
-};
+type Section = "comments" | "messages" | "users";
 
 const AdminPage = () => {
   const token = useAppSelector((state) => state.auth.token);
-  const [status, setStatus] = useState<CommentStatus>("pending");
+  const [section, setSection] = useState<Section>("comments");
 
-  const {
-    data: comments,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["admin", "comments", status],
-    queryFn: () => fetchAdminComments(token!, status),
+  const { data: messages } = useQuery({
+    queryKey: ["admin", "messages"],
+    queryFn: () => fetchAdminMessages(token!),
   });
+
+  const unreadCount =
+    messages?.filter((message) => !message.isRead).length ?? 0;
+
+  const sections: { value: Section; label: string; badge?: number }[] = [
+    { value: "comments", label: "Yorumlar" },
+    { value: "messages", label: "Mesajlar", badge: unreadCount },
+    { value: "users", label: "Kullanıcılar" },
+  ];
 
   return (
     <div className="mx-auto max-w-3xl">
       <h1 className="text-2xl font-bold md:text-3xl">Admin Paneli</h1>
-      <h2 className="mt-8 text-lg font-semibold">Yorumlar</h2>
 
-      <div
-        role="tablist"
-        className="mt-3 mb-6 flex gap-6 border-b border-gray-800"
-      >
-        {TABS.map((tab) => {
-          const isActive = tab.value === status;
-          return (
-            <button
-              key={tab.value}
-              type="button"
-              role="tab"
-              aria-selected={isActive}
-              onClick={() => setStatus(tab.value)}
-              className={`-mb-px border-b-2 pb-2 text-sm font-semibold transition-colors ${
-                isActive
-                  ? "border-white text-white"
-                  : "border-transparent text-gray-400 hover:text-white"
-              }`}
-            >
-              {tab.label}
-            </button>
-          );
-        })}
+      <div className="mt-6 mb-8 flex flex-wrap gap-2">
+        {sections.map((item) => (
+          <button
+            key={item.value}
+            type="button"
+            onClick={() => setSection(item.value)}
+            className={`flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold transition-colors ${
+              section === item.value
+                ? "bg-white text-gray-900"
+                : "text-gray-400 hover:bg-gray-800 hover:text-white"
+            }`}
+          >
+            {item.label}
+            {item.badge ? (
+              <span className="rounded-full bg-yellow-400 px-2 text-xs text-gray-900">
+                {item.badge}
+              </span>
+            ) : null}
+          </button>
+        ))}
       </div>
 
-      {isLoading && <Spinner />}
-      {error && <p className="text-red-400">{error.message}</p>}
-
-      {comments &&
-        (comments.length === 0 ? (
-          <p className="py-12 text-center text-gray-400">
-            {EMPTY_MESSAGES[status]}
-          </p>
-        ) : (
-          <ul className="flex flex-col gap-3">
-            {comments.map((comment) => (
-              <AdminCommentCard key={comment.id} comment={comment} />
-            ))}
-          </ul>
-        ))}
+      {section === "comments" && <AdminComments />}
+      {section === "messages" && <AdminMessages />}
+      {section === "users" && <AdminUsers />}
     </div>
   );
 };
