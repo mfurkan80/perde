@@ -4,6 +4,7 @@ import MovieRow from "../components/MovieRow";
 const HomePage = () => {
   return (
     <div>
+      <title>Perde</title>
       <Hero category="popular" />
 
       <MovieRow title="Popüler Filmler" mediaType="movie" category="popular" />

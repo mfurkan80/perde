@@ -28,6 +28,7 @@ const AdminPage = () => {
 
   return (
     <div className="mx-auto max-w-3xl">
+      <title>Admin Paneli - Perde</title>
       <h1 className="text-2xl font-bold md:text-3xl">Admin Paneli</h1>
 
       <div className="mt-6 mb-8 flex flex-wrap gap-2">

@@ -29,6 +29,7 @@ const RegisterPage = () => {
   });
   return (
     <div className="max-w-md mx-auto mt-12">
+      <title>Kayıt Ol - Perde</title>
       <h1 className="text-2xl font-bold mb-6">Kayıt ol</h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">

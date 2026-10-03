@@ -81,6 +81,7 @@ const ContactPage = () => {
 
   return (
     <div className="max-w-xl mx-auto mt-12">
+      <title>İletişim - Perde</title>
       <h1 className="text-2xl font-bold mb-2">İletişim</h1>
       <p className="text-gray-400 mb-6">
         Soru, öneri veya sorun bildirimi için bize yazın.

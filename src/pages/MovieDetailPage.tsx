@@ -49,6 +49,7 @@ const MovieDetailPage = ({ mediaType }: MovieDetailPageProps) => {
   const trailer = getBestTrailer(data.videos);
   return (
     <div>
+      <title>{`${data.title} - Perde`}</title>
       <section className="relative w-screen left-1/2 -translate-x-1/2 mb-8 -mt-6">
         {data.backdropPath && (
           <img

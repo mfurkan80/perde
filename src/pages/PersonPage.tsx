@@ -94,6 +94,7 @@ const PersonPage = () => {
 
   return (
     <div>
+      <title>{`${person.name} - Perde`}</title>
       <section className="flex flex-col gap-8 md:flex-row">
         <PosterImage
           key={person.profilePath}

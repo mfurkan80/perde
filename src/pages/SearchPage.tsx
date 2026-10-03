@@ -62,12 +62,16 @@ const SearchPage = () => {
 
   if (!query) {
     return (
-      <p className="text-gray-400">Aramak için yukarıdaki kutuyu kullanın.</p>
+      <>
+        <title>Ara - Perde</title>
+        <p className="text-gray-400">Aramak için yukarıdaki kutuyu kullanın.</p>
+      </>
     );
   }
 
   return (
     <div>
+      <title>{`${query} için sonuçlar - Perde`}</title>
       <h1 className="mb-4 text-xl font-bold md:text-2xl">
         "{query}" için sonuçlar
       </h1>

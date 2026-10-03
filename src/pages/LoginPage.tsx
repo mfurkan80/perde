@@ -26,6 +26,7 @@ const LoginPage = () => {
 
   return (
     <div className="max-w-md mx-auto mt-12">
+      <title>Giriş Yap - Perde</title>
       <h1 className="text-2xl font-bold mb-6">Giriş Yap</h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">

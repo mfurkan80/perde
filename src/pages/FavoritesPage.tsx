@@ -43,14 +43,21 @@ const FavoritesPage = () => {
       queryFn: () => fetchMediaDetail(fav.mediaType, String(fav.mediaId)),
     })),
   });
+  const pageTitle = <title>Favorilerim - Perde</title>;
 
   if (isLoading) {
-    return <Spinner />;
+    return (
+      <>
+        {pageTitle}
+        <Spinner />
+      </>
+    );
   }
 
   if (!favorites || favorites.length === 0) {
     return (
       <div className="text-center mt-12">
+        {pageTitle}
         <p className="text-gray-400">Henüz favori içeriğin yok.</p>
         <Link to="/" className="text-white underline mt-2 inline-block">
           Keşfetmeye başla
@@ -65,6 +72,7 @@ const FavoritesPage = () => {
 
   return (
     <div>
+      {pageTitle}
       <h1 className="text-2xl font-bold mb-6">Favorilerim</h1>
       <FavoriteSection title="Filmler" items={movies} />
       <FavoriteSection title="Diziler" items={tvShows} />

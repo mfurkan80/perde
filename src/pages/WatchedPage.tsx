@@ -52,18 +52,30 @@ const WatchedPage = () => {
     const media = mediaQueries[index]?.data;
     if (media) mediaByKey.set(mediaKey(log), media);
   });
+  const pageTitle = <title>İzlediklerim - Perde</title>;
 
   if (isLoading) {
-    return <Spinner />;
+    return (
+      <>
+        {pageTitle}
+        <Spinner />
+      </>
+    );
   }
 
   if (error) {
-    return <p className="text-red-400">{error.message}</p>;
+    return (
+      <>
+        {pageTitle}
+        <p className="text-red-400">{error.message}</p>
+      </>
+    );
   }
 
   if (!logs || logs.length === 0) {
     return (
       <div className="mt-12 text-center">
+        {pageTitle}
         <h1 className="text-2xl font-bold">İzlediklerim</h1>
         <p className="mt-3 text-gray-400">
           Henüz bir şey kaydetmedin. Bir filmin sayfasında "İzledim" butonuna
@@ -78,6 +90,7 @@ const WatchedPage = () => {
 
   return (
     <div className="mx-auto max-w-3xl">
+      {pageTitle}
       <h1 className="text-2xl font-bold md:text-3xl">İzlediklerim</h1>
       <p className="mt-1 text-sm text-gray-400">
         Kişisel izleme günlüğün. Bu sayfayı sadece sen görürsün.

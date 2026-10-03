@@ -1,6 +1,7 @@
 const PrivacyPolicyPage = () => {
   return (
     <div className="max-w-4xl mx-auto py-8">
+      <title>Gizlilik Politikası - Perde</title>
       <div className="rounded-2xl border border-gray-800 bg-gray-900/70 p-6 md:p-10 shadow-lg shadow-black/20">
         <p className="text-xs font-medium uppercase tracking-[0.25em] text-gray-400">
           Perde

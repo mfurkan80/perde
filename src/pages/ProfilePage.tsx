@@ -45,6 +45,7 @@ const ProfilePage = () => {
 
   return (
     <div className="max-w-md mx-auto mt-12">
+      <title>Profilim - Perde</title>
       <h1 className="text-2xl font-bold mb-6">Profil</h1>
 
       <div className="bg-gray-900 rounded-lg p-6">
