@@ -5,6 +5,7 @@ import { mapMultiResults } from "../api/mappers";
 import { searchMulti } from "../api/tmdb";
 import { useDebounce } from "../hooks/useDebounce";
 import { getPosterUrl, getReleaseYear } from "../utils/movieHelpers";
+import PosterImage from "./PosterImage";
 
 interface SearchBarProps {
   onClose?: () => void;
@@ -72,11 +73,10 @@ const SearchBar = ({ onClose, autoFocus = false }: SearchBarProps) => {
               }}
               className="flex gap-3 p-2 hover:bg-gray-700"
             >
-              <img
+              <PosterImage
                 src={getPosterUrl(movie)}
                 alt={movie.title}
-                className="w-10 h-14 object-cover rounded"
-                loading="lazy"
+                className="w-10 h-14 shrink-0 object-cover rounded"
               />
               <div>
                 <h2 className="text-sm text-white">{movie.title}</h2>

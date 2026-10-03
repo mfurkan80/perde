@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { mapPersonDetail } from "../api/mappers";
 import { fetchPersonDetail } from "../api/tmdb";
 import MovieCard from "../components/MovieCard";
+import PosterImage from "../components/PosterImage";
 import ScrollRow from "../components/ScrollRow";
 import Spinner from "../components/Spinner";
 import { getProfileUrl } from "../utils/movieHelpers";
@@ -94,10 +95,11 @@ const PersonPage = () => {
   return (
     <div>
       <section className="flex flex-col gap-8 md:flex-row">
-        <img
+        <PosterImage
+          key={person.profilePath}
           src={getProfileUrl(person)}
           alt={person.name}
-          className="w-48 shrink-0 self-start rounded-lg md:w-64"
+          className="aspect-2/3 w-48 shrink-0 self-start rounded-lg object-cover md:w-64"
         />
 
         <div className="min-w-0">

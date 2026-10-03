@@ -9,6 +9,7 @@ import {
   getReleaseYear,
 } from "../utils/movieHelpers";
 import CastRow from "../components/CastRow";
+import PosterImage from "../components/PosterImage";
 import Spinner from "../components/Spinner";
 import FavoriteButton from "../components/FavoriteButton";
 import CommentSection from "../components/CommentSection";
@@ -59,10 +60,11 @@ const MovieDetailPage = ({ mediaType }: MovieDetailPageProps) => {
         <div className="absolute inset-0 bg-linear-to-r from-gray-950 via-gray-950/60 to-transparent" />
         <div className="absolute inset-0 bg-linear-to-t from-gray-950 to-transparent" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 py-12 flex gap-8 flex-col md:flex-row">
-          <img
+          <PosterImage
+            key={data.posterPath}
             src={getPosterUrl(data)}
             alt={data.title}
-            className="w-48 md:w-64 rounded-lg shrink-0"
+            className="aspect-2/3 w-48 md:w-64 rounded-lg shrink-0 object-cover"
           />
           <div>
             <h1 className="text-2xl md:text-4xl font-bold">{data.title}</h1>

@@ -24,7 +24,7 @@ const CastRow = ({ cast }: CastRowProps) => {
             {person.profilePath ? (
               <img
                 className="w-full h-40 object-cover rounded"
-                src={getProfileUrl(person)}
+                src={getProfileUrl(person) ?? undefined}
                 alt={person.name}
                 loading="lazy"
               />

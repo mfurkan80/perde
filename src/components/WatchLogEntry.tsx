@@ -5,6 +5,7 @@ import type { MovieDetail } from "../types/movie";
 import type { WatchLog } from "../types/watchLog";
 import { getPosterUrl, getReleaseYear } from "../utils/movieHelpers";
 import { formatWatchDate, getLocationLabel } from "../utils/watchLog";
+import PosterImage from "./PosterImage";
 import WatchLogModal from "./WatchLogModal";
 
 interface WatchLogEntryProps {
@@ -36,7 +37,7 @@ const WatchLogEntry = ({
       {showMedia &&
         (media ? (
           <Link to={mediaUrl} className="shrink-0">
-            <img
+            <PosterImage
               src={getPosterUrl(media)}
               alt={media.title}
               className="aspect-2/3 w-16 rounded object-cover md:w-20"

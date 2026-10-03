@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import type { MovieSummary } from "../types/movie";
 import { getPosterUrl, getReleaseYear } from "../utils/movieHelpers";
+import PosterImage from "./PosterImage";
 
 interface MovieCardProps {
   movie: MovieSummary;
@@ -16,11 +17,10 @@ const MovieCard = ({ movie, showMediaType = false }: MovieCardProps) => {
             {movie.mediaType === "movie" ? "Film" : "Dizi"}
           </span>
         )}
-        <img
+        <PosterImage
           className="w-full h-48 md:h-72 object-cover"
           src={getPosterUrl(movie)}
           alt={movie.title}
-          loading="lazy"
         />
         <div className="p-3">
           <h2 className="text-sm font-semibold line-clamp-2 min-h-10 mb-1">

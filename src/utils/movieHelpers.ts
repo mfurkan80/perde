@@ -4,9 +4,9 @@ const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 const BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/w1280";
 const PROFILE_BASE_URL = "https://image.tmdb.org/t/p/w185";
 
-export const getPosterUrl = (movie: MovieSummary): string => {
+export const getPosterUrl = (movie: MovieSummary): string | null => {
   if (!movie.posterPath) {
-    return "/placeholder.jpg";
+    return null;
   }
 
   return `${IMAGE_BASE_URL}${movie.posterPath}`;
@@ -48,9 +48,11 @@ export const getBestTrailer = (videos: Video[]): Video | undefined => {
   return videos[0];
 };
 
-export const getProfileUrl = (profile: { profilePath?: string }): string => {
+export const getProfileUrl = (profile: {
+  profilePath?: string;
+}): string | null => {
   if (!profile.profilePath) {
-    return "/placeholder.jpg";
+    return null;
   }
   return `${PROFILE_BASE_URL}${profile.profilePath}`;
 };
