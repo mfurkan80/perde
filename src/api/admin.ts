@@ -79,6 +79,25 @@ export const setMessageRead = async (
   }
 };
 
+export const replyToMessage = async (
+  token: string,
+  id: number,
+  reply: string,
+): Promise<void> => {
+  const response = await fetch(`${API_URL}/admin/messages/${id}/reply`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ reply }),
+  });
+  if (!response.ok) {
+    const data = await response.json();
+    throw new Error(data.message ?? "Yanıt gönderilemedi.");
+  }
+};
+
 export const deleteMessage = async (
   token: string,
   id: number,

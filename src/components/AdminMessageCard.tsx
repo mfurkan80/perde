@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { deleteMessage, setMessageRead } from "../api/admin";
+import { deleteMessage, setMessageRead, replyToMessage } from "../api/admin";
 import { useAppSelector } from "../store/hooks";
 import type { AdminMessage } from "../types/admin";
 
@@ -28,6 +28,8 @@ const AdminMessageCard = ({ message }: AdminMessageCardProps) => {
   });
 
   const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
+  const [isReplying, setIsReplying] = useState(false);
+  const [replyText, setReplyText] = useState("");
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteMessage(token!, message.id),
@@ -36,7 +38,14 @@ const AdminMessageCard = ({ message }: AdminMessageCardProps) => {
     },
   });
 
-  const replyHref = `mailto:${message.email}?subject=${encodeURIComponent(`Re: ${message.subject}`)}`;
+  const replyMutation = useMutation({
+    mutationFn: () => replyToMessage(token!, message.id, replyText),
+    onSuccess: () => {
+      setIsReplying(false);
+      setReplyText("");
+      queryClient.invalidateQueries({ queryKey: ["admin", "messages"] });
+    },
+  });
 
   return (
     <li
@@ -68,6 +77,11 @@ const AdminMessageCard = ({ message }: AdminMessageCardProps) => {
               Misafir
             </span>
           )}
+          {message.repliedAt && (
+            <span className="rounded bg-green-500/10 px-2 py-0.5 text-green-400">
+              Yanıtlandı · {formatDate(message.repliedAt)}
+            </span>
+          )}
           <span className="text-gray-500">{formatDate(message.createdAt)}</span>
         </div>
       </div>
@@ -76,14 +90,55 @@ const AdminMessageCard = ({ message }: AdminMessageCardProps) => {
         {message.message}
       </p>
 
-      <div className="mt-4 flex flex-wrap items-center gap-3">
-        <a
-          href={replyHref}
-          className="rounded bg-white px-4 py-1.5 text-sm font-semibold text-gray-900 transition-colors hover:bg-gray-200"
-        >
-          Yanıtla
-        </a>
+      {isReplying && (
+        <div className="mt-4">
+          <textarea
+            value={replyText}
+            onChange={(e) => setReplyText(e.target.value)}
+            rows={5}
+            placeholder={`${message.name} adlı kişiye yanıtın.`}
+            autoFocus
+            className="mt-1.5 w-full rounded border border-gray-700 bg-gray-800 px-3 py-1.5 text-sm text-white focus:ring-2 focus:ring-gray-600 focus:outline-none resize-y"
+          ></textarea>
+          <div className="mt-2 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={() => replyMutation.mutate()}
+              disabled={replyText.trim().length < 2 || replyMutation.isPending}
+              className="rounded bg-white px-4 py-1.5 text-sm font-semibold text-gray-900 transition-colors hover:bg-gray-200 disabled:opacity-50"
+            >
+              {replyMutation.isPending ? "Gönderiliyor..." : "Gönder"}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setIsReplying(false);
+                setReplyText("");
+              }}
+              disabled={replyMutation.isPending}
+              className="text-sm text-gray-400 hover:text-white disabled:opacity-50"
+            >
+              Vazgeç
+            </button>
+            {replyMutation.isError && (
+              <span className="text-sm text-red-400">
+                {replyMutation.error.message}
+              </span>
+            )}
+          </div>
+        </div>
+      )}
 
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        {!isReplying && (
+          <button
+            type="button"
+            onClick={() => setIsReplying(true)}
+            className="rounded bg-white px-4 py-1.5 text-sm font-semibold text-gray-900 transition-colors hover:bg-gray-200"
+          >
+            Yanıtla
+          </button>
+        )}
         <button
           type="button"
           onClick={() => mutation.mutate(!message.isRead)}

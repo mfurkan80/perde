@@ -25,6 +25,7 @@ export interface AdminMessage {
   message: string;
   isRead: boolean;
   createdAt: string;
+  repliedAt: string | null;
   username: string | null;
 }
 
