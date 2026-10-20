@@ -45,6 +45,13 @@ const LoginPage = () => {
           className="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
         />
 
+        <Link
+          to="/forgot-password"
+          className="-mt-2 self-end text-sm text-gray-400 hover:text-white"
+        >
+          Şifremi unuttum
+        </Link>
+
         {mutation.isError && (
           <p className="text-red-400 text-sm">{mutation.error.message}</p>
         )}

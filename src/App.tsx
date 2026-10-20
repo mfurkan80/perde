@@ -21,6 +21,8 @@ import WatchedPage from "./pages/WatchedPage";
 import PersonPage from "./pages/PersonPage";
 import AdminRoute from "./components/AdminRoute";
 import AdminPage from "./pages/AdminPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -45,6 +47,8 @@ const App = () => {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route
             path="/favorites"
             element={

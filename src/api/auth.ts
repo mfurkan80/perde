@@ -87,3 +87,32 @@ export const updatePassword = async (
     throw new Error(data.message ?? "Şifre güncellenemedi.");
   }
 };
+
+export const requestPasswordReset = async (email: string): Promise<string> => {
+  const response = await fetch(`${API_URL}/auth/forgot-password`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message ?? "İstek gönderilemedi.");
+  }
+  return data.message;
+};
+
+export const resetPassword = async (
+  token: string,
+  password: string,
+): Promise<string> => {
+  const response = await fetch(`${API_URL}/auth/reset-password`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ token, password }),
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message ?? "Şifre güncellenemedi.");
+  }
+  return data.message;
+};
