@@ -8,6 +8,7 @@ import PosterImage from "../components/PosterImage";
 import ScrollRow from "../components/ScrollRow";
 import Spinner from "../components/Spinner";
 import { getProfileUrl } from "../utils/movieHelpers";
+import { SITE_NAME } from "../config";
 
 const DEPARTMENT_LABELS: Record<string, string> = {
   Acting: "Oyuncu",
@@ -94,7 +95,7 @@ const PersonPage = () => {
 
   return (
     <div>
-      <title>{`${person.name} - Perde`}</title>
+      <title>{`${person.name} - ${SITE_NAME}`}</title>
       <section className="flex flex-col gap-8 md:flex-row">
         <PosterImage
           key={person.profilePath}

@@ -4,6 +4,7 @@ import { mapListPage, mapMovieSummary, mapTvSummary } from "../api/mappers";
 import { discoverMovies, discoverTv, fetchGenres } from "../api/tmdb";
 import MediaGrid, { MediaGridSkeleton } from "../components/MediaGrid";
 import type { MediaType, SortKey } from "../types/movie";
+import { SITE_NAME } from "../config";
 
 const MAX_PAGE = 500;
 
@@ -120,7 +121,7 @@ const BrowsePage = ({ mediaType }: BrowsePageProps) => {
 
   return (
     <div>
-      <title>{`${title} - Perde`}</title>
+      <title>{`${title} - ${SITE_NAME}`}</title>
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold md:text-3xl">{title}</h1>

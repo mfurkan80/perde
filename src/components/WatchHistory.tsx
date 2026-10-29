@@ -19,7 +19,7 @@ const WatchHistory = ({ mediaId, mediaType, title }: WatchHistoryProps) => {
     <section className="mb-8">
       <h2 className="mb-1 text-xl font-semibold">İzleme Geçmişin</h2>
       <p className="mb-4 text-sm text-gray-400">
-        Bu kayıtları sadece sen görürsün.
+        Bu kayıtları diğer kullanıcılar göremez.
       </p>
       <ul className="flex max-w-3xl flex-col gap-3">
         {logs.map((log) => (

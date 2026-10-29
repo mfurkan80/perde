@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { setUser } from "../store/authSlice";
 import { updateProfile, updatePassword } from "../api/auth";
+import { SITE_NAME } from "../config";
 
 const ProfilePage = () => {
   const { user, token } = useAppSelector((state) => state.auth);
@@ -45,7 +46,7 @@ const ProfilePage = () => {
 
   return (
     <div className="max-w-md mx-auto mt-12">
-      <title>Profilim - Perde</title>
+      <title>{`Profilim - ${SITE_NAME}`}</title>
       <h1 className="text-2xl font-bold mb-6">Profil</h1>
 
       <div className="bg-gray-900 rounded-lg p-6">

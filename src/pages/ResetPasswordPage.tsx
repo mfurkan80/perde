@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useState, type SyntheticEvent } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { resetPassword } from "../api/auth";
+import { SITE_NAME } from "../config";
 
 const PASSWORD_MIN = 6;
 
@@ -33,7 +34,7 @@ const ResetPasswordPage = () => {
     mutation.mutate();
   };
 
-  const pageTitle = <title>Yeni Şifre - Perde</title>;
+  const pageTitle = <title>{`Yeni Şifre - ${SITE_NAME}`}</title>;
 
   if (!token) {
     return (
@@ -45,7 +46,7 @@ const ResetPasswordPage = () => {
         </p>
         <Link
           to="/forgot-password"
-          className="mt-6 inline-block text-sm text-white underline"
+          className="mt-6 inline-block bg-white text-gray-900 px-6 py-2 rounded font-semibold"
         >
           Yeni bağlantı iste
         </Link>

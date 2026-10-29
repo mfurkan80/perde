@@ -9,6 +9,7 @@ import {
 import { searchMovies, searchMulti, searchTv } from "../api/tmdb";
 import MediaGrid from "../components/MediaGrid";
 import Spinner from "../components/Spinner";
+import { SITE_NAME } from "../config";
 
 type SearchType = "all" | "movie" | "tv";
 
@@ -63,7 +64,7 @@ const SearchPage = () => {
   if (!query) {
     return (
       <>
-        <title>Ara - Perde</title>
+        <title>{`Ara - ${SITE_NAME}`}</title>
         <p className="text-gray-400">Aramak için yukarıdaki kutuyu kullanın.</p>
       </>
     );
@@ -71,7 +72,7 @@ const SearchPage = () => {
 
   return (
     <div>
-      <title>{`${query} için sonuçlar - Perde`}</title>
+      <title>{`${query} için sonuçlar - ${SITE_NAME}`}</title>
       <h1 className="mb-4 text-xl font-bold md:text-2xl">
         "{query}" için sonuçlar
       </h1>

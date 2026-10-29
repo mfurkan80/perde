@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAppSelector } from "../store/hooks";
 import { CloseIcon } from "./Icons";
+import Logo from "./Logo";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -58,7 +59,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
       >
         <div className="mb-8 flex items-center justify-between">
           <Link to="/" onClick={onClose} className="text-xl font-bold">
-            Perde<span className="text-red-500">.</span>
+            <Logo />
           </Link>
           <button
             type="button"

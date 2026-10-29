@@ -204,7 +204,7 @@ const WatchLogModal = ({
             onChange={(e) => setNote(e.target.value)}
             maxLength={NOTE_MAX}
             rows={3}
-            placeholder="Aklında kalanlar, düşüncelerin... Sadece sen görürsün."
+            placeholder="Aklında kalanlar, düşüncelerin... Diğer kullanıcılar göremez."
             className={`${inputClass} resize-none`}
           />
         </label>

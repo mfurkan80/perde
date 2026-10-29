@@ -3,6 +3,7 @@ import { useState, type ChangeEvent, type SyntheticEvent } from "react";
 import { sendContactMessage } from "../api/contact";
 import { useAppSelector } from "../store/hooks";
 import type { ContactPayload } from "../types/contact";
+import { SITE_NAME } from "../config";
 
 const emptyForm: ContactPayload = {
   name: "",
@@ -81,7 +82,7 @@ const ContactPage = () => {
 
   return (
     <div className="max-w-xl mx-auto mt-12">
-      <title>İletişim - Perde</title>
+      <title>{`İletişim - ${SITE_NAME}`}</title>
       <h1 className="text-2xl font-bold mb-2">İletişim</h1>
       <p className="text-gray-400 mb-6">
         Soru, öneri veya sorun bildirimi için bize yazın.

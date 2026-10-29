@@ -2,6 +2,15 @@ import type { User } from "../types/auth";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+export class AuthError extends Error {
+  code?: string;
+
+  constructor(message: string, code?: string) {
+    super(message);
+    this.code = code;
+  }
+}
+
 export const registerUser = async (
   email: string,
   password: string,
@@ -31,7 +40,10 @@ export const loginUser = async (
   });
   const data = await response.json();
   if (!response.ok) {
-    throw new Error(data.message ?? "Giriş yapma işlemi başarısız oldu.");
+    throw new AuthError(
+      data.message ?? "Giriş yapma işlemi başarısız oldu.",
+      data.code,
+    );
   }
   return data;
 };
@@ -113,6 +125,32 @@ export const resetPassword = async (
   const data = await response.json();
   if (!response.ok) {
     throw new Error(data.message ?? "Şifre güncellenemedi.");
+  }
+  return data.message;
+};
+
+export const verifyEmail = async (token: string): Promise<string> => {
+  const response = await fetch(`${API_URL}/auth/verify-email`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ token }),
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message ?? "E-posta doğrulanamadı.");
+  }
+  return data.message;
+};
+
+export const resendVerification = async (email: string): Promise<string> => {
+  const response = await fetch(`${API_URL}/auth/resend-verification`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message ?? "Doğrulama e-postası gönderilemedi.");
   }
   return data.message;
 };

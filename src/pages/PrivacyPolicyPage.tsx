@@ -1,10 +1,12 @@
+import { SITE_NAME } from "../config";
+
 const PrivacyPolicyPage = () => {
   return (
     <div className="max-w-4xl mx-auto py-8">
-      <title>Gizlilik Politikası - Perde</title>
+      <title>{`Gizlilik Politikası - ${SITE_NAME}`}</title>
       <div className="rounded-2xl border border-gray-800 bg-gray-900/70 p-6 md:p-10 shadow-lg shadow-black/20">
         <p className="text-xs font-medium uppercase tracking-[0.25em] text-gray-400">
-          Perde
+          {SITE_NAME}
         </p>
         <h1 className="mt-3 text-3xl font-bold text-white md:text-4xl">
           Gizlilik Politikası
@@ -16,10 +18,10 @@ const PrivacyPolicyPage = () => {
               1. Kişisel verilerin işlenmesi
             </h2>
             <p className="mt-3 leading-7">
-              Perde uygulaması, kullanıcı deneyimini iyileştirmek ve hesabın
-              güvenliğini sağlamak için temel kişisel verileri işler. Bu veriler
-              arasında e-posta adresi, kullanıcı adı ve oturum bilgileri yer
-              alabilir.
+              {SITE_NAME} uygulaması, kullanıcı deneyimini iyileştirmek ve
+              hesabın güvenliğini sağlamak için temel kişisel verileri işler. Bu
+              veriler arasında e-posta adresi, kullanıcı adı ve oturum bilgileri
+              yer alabilir.
             </p>
           </section>
 
@@ -29,9 +31,11 @@ const PrivacyPolicyPage = () => {
             </h2>
             <p className="mt-3 leading-7">
               Toplanan veriler; kullanıcı girişi, profil oluşturma, favori
-              listesi yönetimi ve hizmetin güvenli şekilde çalışması amacıyla
-              kullanılır. Bu bilgiler üçüncü taraflarla satış amacıyla
-              paylaşılmaz.
+              listesi ve izleme günlüğü yönetimi ve hizmetin güvenli şekilde
+              çalışması amacıyla kullanılır. E-posta adresiniz hesabınızı
+              doğrulamak, şifre sıfırlama bağlantısı göndermek ve iletişim
+              mesajlarınıza yanıt vermek için kullanılır. Bu bilgiler üçüncü
+              taraflarla satış amacıyla paylaşılmaz.
             </p>
           </section>
 
@@ -49,12 +53,16 @@ const PrivacyPolicyPage = () => {
 
           <section>
             <h2 className="text-xl font-semibold text-white">
-              4. Favori ve içerik verileri
+              4. Favori, izleme ve yorum verileri
             </h2>
             <p className="mt-3 leading-7">
-              Kullanıcılar tarafından kaydedilen favoriler, kişisel izleme ve
-              tekrar erişim amacıyla saklanır. Bu veriler kullanıcı hesabına
-              özel olarak kullanılır.
+              Kullanıcılar tarafından kaydedilen favoriler ve izleme kayıtları
+              (izleme tarihi, puan, notlar ve kiminle izlendiği bilgisi dahil)
+              kişisel takip ve tekrar erişim amacıyla saklanır. Bu veriler diğer
+              kullanıcılara gösterilmez; ancak hizmetin yönetimi ve güvenliği
+              amacıyla site yöneticisi tarafından görüntülenebilir. Yorumlar
+              yönetici onayından sonra kullanıcı adınızla birlikte herkese açık
+              olarak yayınlanır.
             </p>
           </section>
 

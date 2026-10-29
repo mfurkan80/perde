@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useState, type SyntheticEvent } from "react";
 import { Link } from "react-router-dom";
 import { requestPasswordReset } from "../api/auth";
+import { SITE_NAME } from "../config";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ const ForgotPasswordPage = () => {
 
   return (
     <div className="max-w-md mx-auto mt-12">
-      <title>Şifremi Unuttum - Perde</title>
+      <title>{`Şifremi Unuttum - ${SITE_NAME}`}</title>
       <h1 className="text-2xl font-bold mb-2">Şifremi Unuttum</h1>
 
       {mutation.isSuccess ? (
@@ -29,7 +30,7 @@ const ForgotPasswordPage = () => {
           </p>
           <Link
             to="/login"
-            className="mt-6 inline-block text-sm text-white underline"
+            className="mt-6 inline-block bg-white text-gray-900 px-6 py-2 rounded font-semibold"
           >
             Girişe dön
           </Link>

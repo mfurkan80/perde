@@ -5,6 +5,7 @@ import { CloseIcon, MenuIcon, SearchIcon } from "./Icons";
 import MobileMenu from "./MobileMenu";
 import NavLinks from "./NavLinks";
 import SearchBar from "./SearchBar";
+import Logo from "./Logo";
 
 const iconButtonClass = "p-1 text-gray-300 hover:text-white";
 
@@ -47,7 +48,7 @@ const Header = () => {
 
               <Link to="/">
                 <h1 className="text-xl font-bold">
-                  Perde<span className="text-red-500">.</span>
+                  <Logo />
                 </h1>
               </Link>
             </div>
@@ -74,7 +75,7 @@ const Header = () => {
         <div className="flex items-center gap-6">
           <Link to="/">
             <h1 className="text-2xl font-extrabold tracking-tight">
-              Perde<span className="text-red-500">.</span>
+              <Logo />
             </h1>
           </Link>
 

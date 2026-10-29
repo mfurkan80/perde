@@ -5,6 +5,7 @@ import AdminComments from "../components/AdminComments";
 import AdminMessages from "../components/AdminMessages";
 import AdminUsers from "../components/AdminUsers";
 import { useAppSelector } from "../store/hooks";
+import { SITE_NAME } from "../config";
 
 type Section = "comments" | "messages" | "users";
 
@@ -28,7 +29,7 @@ const AdminPage = () => {
 
   return (
     <div className="mx-auto max-w-3xl">
-      <title>Admin Paneli - Perde</title>
+      <title>{`Admin Paneli - ${SITE_NAME}`}</title>
       <h1 className="text-2xl font-bold md:text-3xl">Admin Paneli</h1>
 
       <div className="mt-6 mb-8 flex flex-wrap gap-2">

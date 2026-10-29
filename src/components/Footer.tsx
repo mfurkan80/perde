@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { SITE_NAME } from "../config";
 
 const linkGroups = [
   {
@@ -27,7 +28,7 @@ const Footer = () => {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-3">
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="text-lg font-bold">
-              Perde
+              {SITE_NAME}
             </Link>
             <p className="mt-2 text-sm text-gray-400">
               Film bilgisi almak için doğru adres.

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { deleteUser } from "../api/admin";
 import { useAppSelector } from "../store/hooks";
 import type { AdminUser } from "../types/admin";
+import AdminUserActivity from "./AdminUserActivity";
 
 interface AdminUserCardProps {
   user: AdminUser;
@@ -20,6 +21,7 @@ const AdminUserCard = ({ user }: AdminUserCardProps) => {
   const queryClient = useQueryClient();
 
   const [isConfirming, setIsConfirming] = useState(false);
+  const [showActivity, setShowActivity] = useState(false);
   const [confirmText, setConfirmText] = useState("");
 
   const isSelf = currentUser?.id === user.id;
@@ -56,6 +58,11 @@ const AdminUserCard = ({ user }: AdminUserCardProps) => {
                 Admin
               </span>
             )}
+            {!user.emailVerifiedAt && (
+              <span className="rounded bg-orange-500/10 px-2 py-0.5 text-xs text-orange-400">
+                Doğrulanmamış
+              </span>
+            )}
             {isSelf && (
               <span className="rounded bg-gray-700 px-2 py-0.5 text-xs text-gray-300">
                 Sen
@@ -69,9 +76,20 @@ const AdminUserCard = ({ user }: AdminUserCardProps) => {
         </p>
       </div>
 
-      <p className="mt-3 text-sm text-gray-300">
-        {stats.map((stat) => `${stat.value} ${stat.label}`).join(" · ")}
-      </p>
+      <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+        <p className="text-sm text-gray-300">
+          {stats.map((stat) => `${stat.value} ${stat.label}`).join(" · ")}
+        </p>
+        <button
+          type="button"
+          onClick={() => setShowActivity((prev) => !prev)}
+          className="text-sm font-semibold text-gray-400 hover:text-white"
+        >
+          {showActivity ? "Etkinliği gizle" : "Etkinliği gör"}
+        </button>
+      </div>
+
+      {showActivity && <AdminUserActivity userId={user.id} />}
 
       {canDelete &&
         (isConfirming ? (

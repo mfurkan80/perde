@@ -7,6 +7,7 @@ import { useAllWatchLogs } from "../hooks/useWatchLogs";
 import type { MovieDetail } from "../types/movie";
 import type { WatchLog } from "../types/watchLog";
 import { formatWatchMonth } from "../utils/watchLog";
+import { SITE_NAME } from "../config";
 
 const mediaKey = (log: WatchLog) => `${log.mediaType}-${log.mediaId}`;
 
@@ -52,7 +53,7 @@ const WatchedPage = () => {
     const media = mediaQueries[index]?.data;
     if (media) mediaByKey.set(mediaKey(log), media);
   });
-  const pageTitle = <title>İzlediklerim - Perde</title>;
+  const pageTitle = <title>{`İzlediklerim - ${SITE_NAME}`}</title>;
 
   if (isLoading) {
     return (
@@ -93,7 +94,7 @@ const WatchedPage = () => {
       {pageTitle}
       <h1 className="text-2xl font-bold md:text-3xl">İzlediklerim</h1>
       <p className="mt-1 text-sm text-gray-400">
-        Kişisel izleme günlüğün. Bu sayfayı sadece sen görürsün.
+        Kişisel izleme günlüğün. Diğer kullanıcılar bu sayfayı göremez.
       </p>
 
       {groupByMonth(logs).map(([month, monthLogs]) => (

@@ -2,8 +2,9 @@ import { useMutation } from "@tanstack/react-query";
 import { useState, type SyntheticEvent } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../api/auth";
+import { AuthError, loginUser, resendVerification } from "../api/auth";
 import { setCredentials } from "../store/authSlice";
+import { SITE_NAME } from "../config";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -19,6 +20,14 @@ const LoginPage = () => {
     },
   });
 
+  const resendMutation = useMutation({
+    mutationFn: () => resendVerification(email),
+  });
+
+  const needsVerification =
+    mutation.error instanceof AuthError &&
+    mutation.error.code === "EMAIL_NOT_VERIFIED";
+
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     mutation.mutate();
@@ -26,7 +35,7 @@ const LoginPage = () => {
 
   return (
     <div className="max-w-md mx-auto mt-12">
-      <title>Giriş Yap - Perde</title>
+      <title>{`Giriş Yap - ${SITE_NAME}`}</title>
       <h1 className="text-2xl font-bold mb-6">Giriş Yap</h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -54,6 +63,33 @@ const LoginPage = () => {
 
         {mutation.isError && (
           <p className="text-red-400 text-sm">{mutation.error.message}</p>
+        )}
+
+        {needsVerification && (
+          <div className="rounded border border-gray-700 bg-gray-900 p-3 text-sm">
+            {resendMutation.isSuccess ? (
+              <p className="text-gray-300">{resendMutation.data}</p>
+            ) : (
+              <>
+                <p className="text-gray-400">Doğrulama e-postası gelmedi mi?</p>
+                <button
+                  type="button"
+                  onClick={() => resendMutation.mutate()}
+                  disabled={resendMutation.isPending}
+                  className="mt-2 font-semibold text-white underline disabled:opacity-50"
+                >
+                  {resendMutation.isPending
+                    ? "Gönderiliyor..."
+                    : "Doğrulama e-postasını tekrar gönder"}
+                </button>
+                {resendMutation.isError && (
+                  <p className="mt-2 text-red-400">
+                    {resendMutation.error.message}
+                  </p>
+                )}
+              </>
+            )}
+          </div>
         )}
 
         <button

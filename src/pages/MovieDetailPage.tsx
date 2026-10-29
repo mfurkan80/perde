@@ -15,6 +15,7 @@ import FavoriteButton from "../components/FavoriteButton";
 import CommentSection from "../components/CommentSection";
 import WatchedButton from "../components/WatchedButton";
 import WatchHistory from "../components/WatchHistory";
+import { SITE_NAME } from "../config";
 
 interface MovieDetailPageProps {
   mediaType: "movie" | "tv";
@@ -49,7 +50,7 @@ const MovieDetailPage = ({ mediaType }: MovieDetailPageProps) => {
   const trailer = getBestTrailer(data.videos);
   return (
     <div>
-      <title>{`${data.title} - Perde`}</title>
+      <title>{`${data.title} - ${SITE_NAME}`}</title>
       <section className="relative w-screen left-1/2 -translate-x-1/2 mb-8 -mt-6">
         {data.backdropPath && (
           <img

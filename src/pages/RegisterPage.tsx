@@ -1,35 +1,46 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState, type SyntheticEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { loginUser, registerUser } from "../api/auth";
-import { setCredentials } from "../store/authSlice";
-import { useAppDispatch } from "../store/hooks";
+import { Link } from "react-router-dom";
+import { registerUser } from "../api/auth";
+import { SITE_NAME } from "../config";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
 
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     mutation.mutate();
   };
 
   const mutation = useMutation({
-    mutationFn: async () => {
-      await registerUser(email, password, username);
-      return loginUser(email, password);
-    },
-    onSuccess: (data) => {
-      dispatch(setCredentials({ user: data.user, token: data.token }));
-      navigate("/");
-    },
+    mutationFn: () => registerUser(email, password, username),
   });
+
+  if (mutation.isSuccess) {
+    return (
+      <div className="max-w-md mx-auto mt-12">
+        <title>{`Kayıt Ol - ${SITE_NAME}`}</title>
+        <h1 className="text-2xl font-bold mb-2">E-postanı kontrol et</h1>
+        <p className="text-gray-300">{mutation.data.message}</p>
+        <p className="mt-2 text-sm text-gray-400">
+          Bağlantıyı <span className="text-white">{email}</span> adresine
+          gönderdik. Göremiyorsan spam klasörüne de bak.
+        </p>
+        <Link
+          to="/login"
+          className="mt-6 inline-block bg-white text-gray-900 px-6 py-2 rounded font-semibold"
+        >
+          Girişe dön
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-md mx-auto mt-12">
-      <title>Kayıt Ol - Perde</title>
+      <title>{`Kayıt Ol - ${SITE_NAME}`}</title>
       <h1 className="text-2xl font-bold mb-6">Kayıt ol</h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">

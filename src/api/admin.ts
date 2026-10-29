@@ -4,6 +4,7 @@ import type {
   ModerationStatus,
   AdminMessage,
   AdminUser,
+  AdminUserActivity,
 } from "../types/admin";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -124,6 +125,23 @@ export const fetchAdminUsers = async (token: string): Promise<AdminUser[]> => {
   }
 
   return data.users;
+};
+
+export const fetchUserActivity = async (
+  token: string,
+  id: number,
+): Promise<AdminUserActivity> => {
+  const response = await fetch(`${API_URL}/admin/users/${id}/activity`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message ?? "Kullanıcı etkinliği yüklenemedi.");
+  }
+
+  return data;
 };
 
 export const deleteUser = async (token: string, id: number): Promise<void> => {

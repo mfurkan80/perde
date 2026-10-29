@@ -1,10 +1,11 @@
+import { SITE_NAME } from "../config";
 import Hero from "../components/Hero";
 import MovieRow from "../components/MovieRow";
 
 const HomePage = () => {
   return (
     <div>
-      <title>Perde</title>
+      <title>{SITE_NAME}</title>
       <Hero category="popular" />
 
       <MovieRow title="Popüler Filmler" mediaType="movie" category="popular" />

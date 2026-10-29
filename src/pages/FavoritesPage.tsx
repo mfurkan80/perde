@@ -6,6 +6,7 @@ import MovieCard from "../components/MovieCard";
 import Spinner from "../components/Spinner";
 import type { MovieSummary } from "../types/movie";
 import { useAppSelector } from "../store/hooks";
+import { SITE_NAME } from "../config";
 
 interface FavoriteSectionProps {
   title: string;
@@ -43,7 +44,7 @@ const FavoritesPage = () => {
       queryFn: () => fetchMediaDetail(fav.mediaType, String(fav.mediaId)),
     })),
   });
-  const pageTitle = <title>Favorilerim - Perde</title>;
+  const pageTitle = <title>{`Favorilerim - ${SITE_NAME}`}</title>;
 
   if (isLoading) {
     return (
