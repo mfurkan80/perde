@@ -7,3 +7,8 @@
     display: none;
   }
 }
+
+html {
+  color-scheme: dark;
+  scrollbar-color: var(--color-gray-700) var(--color-gray-950);
+}

@@ -3,6 +3,9 @@ import { useAppSelector } from "../store/hooks";
 import { linkClass } from "../utils/linkClass";
 import UserMenu from "./UserMenu";
 
+const contactLinkClass = ({ isActive }: { isActive: boolean }) =>
+  `text-sm ${isActive ? "text-white" : "text-gray-500 hover:text-white"}`;
+
 export interface NavLinksProps {
   compact?: boolean;
 }
@@ -13,6 +16,11 @@ const NavLinks = ({ compact = false }: NavLinksProps) => {
   if (!user) {
     return (
       <>
+        {!compact && (
+          <NavLink to="/contact" className={contactLinkClass}>
+            İletişim
+          </NavLink>
+        )}
         <NavLink to="/login" className={linkClass}>
           Giriş Yap
         </NavLink>

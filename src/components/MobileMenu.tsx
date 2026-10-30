@@ -83,8 +83,11 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
           </NavLink>
         </div>
 
-        {!user && (
-          <div className="mt-auto border-t border-gray-800 pt-6">
+        <div className="mt-auto flex flex-col gap-4 border-t border-gray-800 pt-6">
+          <NavLink to="/contact" onClick={onClose} className={mobileLinkClass}>
+            İletişim
+          </NavLink>
+          {!user && (
             <Link
               to="/register"
               onClick={onClose}
@@ -92,8 +95,8 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
             >
               Kayıt Ol
             </Link>
-          </div>
-        )}
+          )}
+        </div>
       </nav>
     </div>
   );

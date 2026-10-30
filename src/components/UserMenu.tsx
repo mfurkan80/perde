@@ -74,6 +74,13 @@ const UserMenu = () => {
           >
             İzlediklerim
           </Link>
+          <Link
+            to="/contact"
+            onClick={() => setIsOpen(false)}
+            className="block px-4 py-2 text-sm hover:bg-gray-700"
+          >
+            İletişim
+          </Link>
           {user.role === "admin" && (
             <Link
               to="/admin"

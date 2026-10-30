@@ -72,7 +72,7 @@ const Header = () => {
       <MobileMenu isOpen={isMenuOpen} onClose={closeMenu} />
 
       <div className="hidden md:flex max-w-7xl mx-auto items-center gap-4">
-        <div className="flex items-center gap-6">
+        <div className="flex shrink-0 items-center gap-6">
           <Link to="/">
             <h1 className="text-2xl font-extrabold tracking-tight">
               <Logo />
@@ -91,11 +91,11 @@ const Header = () => {
           </nav>
         </div>
 
-        <div className="flex-1 flex justify-center">
+        <div className="flex min-w-0 flex-1 justify-center">
           <SearchBar />
         </div>
 
-        <nav className="flex items-center gap-6 justify-end w-64">
+        <nav className="flex shrink-0 items-center justify-end gap-6 whitespace-nowrap lg:w-64">
           <NavLinks />
         </nav>
       </div>

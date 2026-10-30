@@ -4,7 +4,7 @@ import Header from "../components/Header";
 
 const MainLayout = () => {
   return (
-    <div className="bg-gray-950 text-white min-h-screen flex flex-col">
+    <div className="bg-gray-950 text-white min-h-screen flex flex-col overflow-x-clip">
       <Header />
       <main className="max-w-7xl mx-auto px-4 py-6 w-full flex-1">
         <Outlet />
