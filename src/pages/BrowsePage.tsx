@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { mapListPage, mapMovieSummary, mapTvSummary } from "../api/mappers";
 import { discoverMovies, discoverTv, fetchGenres } from "../api/tmdb";
 import MediaGrid, { MediaGridSkeleton } from "../components/MediaGrid";
+import MetaDescription from "../components/MetaDescription";
 import type { MediaType, SortKey } from "../types/movie";
 import { SITE_NAME } from "../config";
 
@@ -122,6 +123,9 @@ const BrowsePage = ({ mediaType }: BrowsePageProps) => {
   return (
     <div>
       <title>{`${title} - ${SITE_NAME}`}</title>
+      <MetaDescription
+        text={`Popüler, en çok oylanan ve en yeni ${title.toLocaleLowerCase("tr-TR")} türlere göre listelenmiş halde. Özetleri, oyuncuları ve fragmanları keşfet.`}
+      />
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold md:text-3xl">{title}</h1>

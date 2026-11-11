@@ -9,6 +9,7 @@ import {
   getReleaseYear,
 } from "../utils/movieHelpers";
 import CastRow from "../components/CastRow";
+import MetaDescription from "../components/MetaDescription";
 import PosterImage from "../components/PosterImage";
 import Spinner from "../components/Spinner";
 import FavoriteButton from "../components/FavoriteButton";
@@ -51,6 +52,7 @@ const MovieDetailPage = ({ mediaType }: MovieDetailPageProps) => {
   return (
     <div>
       <title>{`${data.title} - ${SITE_NAME}`}</title>
+      <MetaDescription text={data.overview} />
       <section className="relative w-screen left-1/2 -translate-x-1/2 mb-8 -mt-6">
         {data.backdropPath && (
           <img

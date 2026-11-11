@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { SITE_NAME } from "../config";
+import { isAnalyticsEnabled, openConsentPanel } from "../utils/consent";
 
 const linkGroups = [
   {
@@ -54,6 +55,36 @@ const Footer = () => {
               </ul>
             </nav>
           ))}
+        </div>
+
+        <div className="mt-8 flex flex-col gap-3 border-t border-gray-800 pt-6 text-xs text-gray-500 md:flex-row md:items-center md:justify-between">
+          <p>
+            Film ve dizi verileri{" "}
+            <a
+              href="https://www.themoviedb.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-white"
+            >
+              TMDB
+            </a>{" "}
+            tarafından sağlanır. Bu site TMDB API'sini kullanır ancak TMDB
+            tarafından onaylanmış veya desteklenmiş değildir.
+          </p>
+          <div className="flex shrink-0 items-center gap-4">
+            {isAnalyticsEnabled && (
+              <button
+                type="button"
+                onClick={openConsentPanel}
+                className="transition-colors duration-200 hover:text-white"
+              >
+                Çerez Tercihleri
+              </button>
+            )}
+            <span>
+              © {new Date().getFullYear()} {SITE_NAME}
+            </span>
+          </div>
         </div>
       </div>
     </footer>

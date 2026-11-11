@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { mapPersonDetail } from "../api/mappers";
 import { fetchPersonDetail } from "../api/tmdb";
+import MetaDescription from "../components/MetaDescription";
 import MovieCard from "../components/MovieCard";
 import PosterImage from "../components/PosterImage";
 import ScrollRow from "../components/ScrollRow";
@@ -96,6 +97,7 @@ const PersonPage = () => {
   return (
     <div>
       <title>{`${person.name} - ${SITE_NAME}`}</title>
+      <MetaDescription text={person.biography} />
       <section className="flex flex-col gap-8 md:flex-row">
         <PosterImage
           key={person.profilePath}

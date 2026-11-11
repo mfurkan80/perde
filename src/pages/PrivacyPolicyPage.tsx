@@ -44,10 +44,25 @@ const PrivacyPolicyPage = () => {
               3. Çerezler ve istemci verileri
             </h2>
             <p className="mt-3 leading-7">
-              Uygulama, oturumun açık kalması ve kullanıcı tercihlerinin
-              hatırlanması için gerekli teknik verileri kullanabilir. Bu veriler
-              sadece kullanıcının daha iyi bir deneyim yaşamasına yardımcı olmak
-              amacıyla tutulur.
+              Oturumunuzun açık kalması ve çerez tercihinizin hatırlanması için
+              tarayıcınızın yerel depolama alanına zorunlu teknik veriler
+              kaydedilir. Bu veriler hizmetin çalışması için gereklidir ve
+              herhangi bir analiz veya reklam amacıyla kullanılmaz.
+            </p>
+            <p className="mt-3 leading-7">
+              Sitenin nasıl kullanıldığını anlamak ve geliştirmek amacıyla,
+              yalnızca açık onayınız olması halinde Google LLC tarafından
+              sağlanan Google Analytics hizmeti kullanılır. Bu hizmet; ziyaret
+              edilen sayfalar, ziyaret süresi, cihaz ve tarayıcı türü ile
+              yaklaşık konum gibi bilgileri çerezler aracılığıyla toplar. Bu
+              veriler Google'ın yurt dışındaki sunucularında işlenebilir. Reklam
+              amaçlı çerezler kullanılmaz.
+            </p>
+            <p className="mt-3 leading-7">
+              Onay vermediğiniz sürece Google Analytics yüklenmez. Verdiğiniz
+              onayı istediğiniz zaman sayfanın en altındaki &quot;Çerez
+              Tercihleri&quot; bağlantısından geri çekebilirsiniz; bu durumda
+              analiz çerezleri silinir ve veri toplanması durdurulur.
             </p>
           </section>
 
